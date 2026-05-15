@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Rotina — Raul</title>
+    <meta name="description" content="Rotina personalizada de alimentação, treino e compras">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="profile-badge">
+                <div class="profile-icon">💪</div>
+                <div class="profile-info">
+                    <h1>Rotina do Raul</h1>
+                    <p class="profile-stats">24 anos · 195cm · 105kg · Recomposição</p>
+                </div>
+            </div>
+            <div class="macro-cards">
+                <div class="macro-card cal"><span class="macro-val">2.500</span><span class="macro-label">kcal/dia</span></div>
+                <div class="macro-card prot"><span class="macro-val">190g</span><span class="macro-label">Proteína</span></div>
+                <div class="macro-card carb"><span class="macro-val">260g</span><span class="macro-label">Carboidrato</span></div>
+                <div class="macro-card fat"><span class="macro-val">75g</span><span class="macro-label">Gordura</span></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <button class="nav-btn active" data-section="meals">🍽️ Refeições</button>
+        <button class="nav-btn" data-section="prep">👨‍🍳 Preparo</button>
+        <button class="nav-btn" data-section="training">🏋️ Treinos</button>
+        <button class="nav-btn" data-section="shopping">🛒 Compras</button>
+        <button class="nav-btn" data-section="schedule">📅 Agenda</button>
+    </nav>
+
+    <!-- Sections -->
+    <main id="app-main">
+        <!-- MEALS SECTION -->
+        <section id="meals" class="section active">
+            <div class="meal-tabs" id="meal-tabs"></div>
+            <div class="meal-content" id="meal-content"></div>
+        </section>
+
+        <!-- PREP SECTION -->
+        <section id="prep" class="section"></section>
+
+        <!-- TRAINING SECTION -->
+        <section id="training" class="section"></section>
+
+        <!-- SHOPPING SECTION -->
+        <section id="shopping" class="section"></section>
+
+        <!-- SCHEDULE SECTION -->
+        <section id="schedule" class="section"></section>
+    </main>
+
+    <footer>
+        <p>Última atualização: Abril/2026 · Consulte um nutricionista para ajustes personalizados</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
