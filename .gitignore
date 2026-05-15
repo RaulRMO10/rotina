@@ -1,0 +1,5 @@
+node_modules/
+.claude/
+.env
+fatsecret_api_info.txt
+test_fatsecret.js

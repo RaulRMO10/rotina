@@ -32,6 +32,10 @@ try {
 
 function saveState() {
   localStorage.setItem('rotinaState', JSON.stringify(state));
+  if (window.DB) {
+    showSync();
+    DB.debouncedSync(state.plan);
+  }
 }
 
 // ===== HELPERS =====
@@ -798,9 +802,14 @@ function renderShopping() {
         <h2 class="section-title" style="margin:0">🛒 Lista de Compras</h2>
         <p class="section-sub" style="margin:4px 0 0">Escolha o período para calcular as quantidades exatas.</p>
       </div>
-      <button id="export-shop-btn" style="padding: 10px 16px; background: var(--green); color: #000; font-size: 13px; font-weight: 800; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 12px rgba(52, 211, 153, 0.3); transition: transform 0.2s;">
-        📲 Copiar para Bloco de Notas
-      </button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button id="export-shop-btn" style="padding: 10px 16px; background: var(--green); color: #000; font-size: 13px; font-weight: 800; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 12px rgba(52, 211, 153, 0.3);">
+          📲 Copiar para Bloco de Notas
+        </button>
+        <button id="save-shop-btn" style="padding: 10px 16px; background: #3b82f6; color: #fff; font-size: 13px; font-weight: 800; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 12px rgba(59,130,246,0.3);">
+          💾 Salvar no Banco
+        </button>
+      </div>
     </div>
     ${periodTabs}
     <div class="week-summary">${weekSummaries}</div>
@@ -811,6 +820,23 @@ function renderShopping() {
     </div>
   `;
   
+  section.querySelector('#save-shop-btn').addEventListener('click', async () => {
+    if (!window.DB) return alert('DB não disponível.');
+    const btn = section.querySelector('#save-shop-btn');
+    btn.disabled = true; btn.textContent = '⏳ Salvando...';
+    try {
+      const flatItems = Object.entries(categories).flatMap(([cat, items]) =>
+        items.map(i => ({ cat, name: i.name, monthly: i.monthly, packs: i.packs }))
+      );
+      await DB.saveShopping({ period: state.shoppingPeriod, items: flatItems, totalMin, totalMax });
+      btn.textContent = '✅ Salvo!';
+      setTimeout(() => { btn.disabled = false; btn.textContent = '💾 Salvar no Banco'; }, 2500);
+    } catch (e) {
+      alert('Erro ao salvar: ' + e.message);
+      btn.disabled = false; btn.textContent = '💾 Salvar no Banco';
+    }
+  });
+
   section.querySelector('#export-shop-btn').addEventListener('click', () => {
     let periodName = state.shoppingPeriod === 'weekly' ? 'Semanal' : (state.shoppingPeriod === 'biweekly' ? 'Quinzenal' : 'Mensal');
     let txt = `🛒 *LISTA DE COMPRAS* (${periodName})\nEstimativa: R$ ${totalMin.toFixed(0)} – ${totalMax.toFixed(0)}\n\n`;
@@ -893,3 +919,96 @@ renderMeals();
 renderTraining();
 renderSchedule();
 updateHeaderMacros();
+
+// ===== SUPABASE AUTH + SYNC =====
+function showSync() {
+  const el = document.getElementById('sync-status');
+  if (!el) return;
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+function updateAuthUI(user) {
+  const indicator = document.getElementById('auth-indicator');
+  const modal     = document.getElementById('auth-modal');
+  if (!indicator || !modal) return;
+
+  if (user) {
+    indicator.textContent = '✓ ' + user.email;
+    indicator.className = 'online';
+    modal.classList.remove('visible');
+  } else {
+    indicator.textContent = '⬤ offline';
+    indicator.className = '';
+    modal.classList.add('visible');
+  }
+}
+
+// Wire up auth modal buttons
+document.getElementById('auth-login-btn')?.addEventListener('click', async () => {
+  const email = document.getElementById('auth-email').value.trim();
+  const pass  = document.getElementById('auth-password').value;
+  const errEl = document.getElementById('auth-error');
+  errEl.textContent = '';
+  try {
+    await DB.signIn(email, pass);
+  } catch (e) {
+    errEl.textContent = e.message;
+  }
+});
+
+document.getElementById('auth-signup-btn')?.addEventListener('click', async () => {
+  const email = document.getElementById('auth-email').value.trim();
+  const pass  = document.getElementById('auth-password').value;
+  const errEl = document.getElementById('auth-error');
+  errEl.textContent = '';
+  try {
+    await DB.signUp(email, pass);
+    errEl.style.color = '#34d399';
+    errEl.textContent = 'Conta criada! Verifique seu e-mail para confirmar.';
+  } catch (e) {
+    errEl.style.color = '#f87171';
+    errEl.textContent = e.message;
+  }
+});
+
+document.getElementById('auth-indicator')?.addEventListener('click', async () => {
+  const user = await DB.getUser();
+  if (user && confirm('Sair da conta?')) {
+    await DB.signOut();
+    updateAuthUI(null);
+  }
+});
+
+// Init: escuta mudanças de auth e carrega plano do banco ao logar
+if (window.DB) {
+  DB.init(async (user) => {
+    updateAuthUI(user);
+    if (!user) return;
+
+    // Carrega plano salvo no banco e mescla com o state atual
+    const rows = await DB.loadPlan();
+    if (!rows || rows.length === 0) {
+      // Nenhum dado no banco ainda — sobe o estado atual do localStorage
+      DB.syncPlan(state.plan);
+      return;
+    }
+
+    let changed = false;
+    rows.forEach(row => {
+      if (state.plan[row.week_idx]?.[row.day_idx] !== undefined) {
+        if (state.plan[row.week_idx][row.day_idx][row.meal_id] !== row.option_idx) {
+          state.plan[row.week_idx][row.day_idx][row.meal_id] = row.option_idx;
+          changed = true;
+        }
+      }
+    });
+
+    if (changed) {
+      localStorage.setItem('rotinaState', JSON.stringify(state));
+      renderMeals();
+      updateHeaderMacros();
+    }
+  });
+}
