@@ -8,6 +8,54 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+      /* ── AUTH MODAL ── */
+      #auth-modal {
+        display: none; position: fixed; inset: 0; z-index: 9999;
+        background: rgba(0,0,0,.75); backdrop-filter: blur(6px);
+        align-items: center; justify-content: center;
+      }
+      #auth-modal.visible { display: flex; }
+      .auth-box {
+        background: #1a1a2e; border: 1px solid #2d2d4e; border-radius: 16px;
+        padding: 32px 28px; width: 100%; max-width: 360px; text-align: center;
+      }
+      .auth-box h2 { margin: 0 0 6px; font-size: 1.3rem; color: #fff; }
+      .auth-box p  { margin: 0 0 24px; color: #888; font-size: .88rem; }
+      .auth-input {
+        width: 100%; padding: 12px 14px; margin-bottom: 12px; border-radius: 10px;
+        border: 1px solid #2d2d4e; background: #0d0d1a; color: #fff;
+        font-size: .95rem; box-sizing: border-box;
+      }
+      .auth-btn {
+        width: 100%; padding: 13px; border: none; border-radius: 10px;
+        background: #34d399; color: #000; font-weight: 800; font-size: 1rem;
+        cursor: pointer; margin-bottom: 10px;
+      }
+      .auth-btn.secondary {
+        background: transparent; border: 1px solid #2d2d4e;
+        color: #aaa; font-weight: 600; font-size: .88rem;
+      }
+      .auth-error { color: #f87171; font-size: .83rem; margin: 4px 0 10px; min-height: 18px; }
+
+      /* ── AUTH INDICATOR ── */
+      #auth-indicator {
+        position: fixed; bottom: 12px; right: 12px; z-index: 999;
+        background: #1a1a2e; border: 1px solid #2d2d4e; border-radius: 50px;
+        padding: 6px 14px; font-size: .78rem; color: #888; cursor: pointer;
+        display: flex; align-items: center; gap: 6px;
+      }
+      #auth-indicator.online { color: #34d399; border-color: #34d39944; }
+
+      /* ── SYNC STATUS ── */
+      #sync-status {
+        position: fixed; bottom: 12px; left: 12px; z-index: 999;
+        background: #1a1a2e; border: 1px solid #2d2d4e; border-radius: 50px;
+        padding: 6px 14px; font-size: .78rem; color: #888;
+        opacity: 0; transition: opacity .3s;
+      }
+      #sync-status.show { opacity: 1; }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -64,7 +112,28 @@
         <p>Última atualização: Abril/2026 · Consulte um nutricionista para ajustes personalizados</p>
     </footer>
 
+    <!-- Auth modal -->
+    <div id="auth-modal">
+      <div class="auth-box">
+        <h2>💪 Rotina do Raul</h2>
+        <p>Entre para sincronizar seus dados em todos os dispositivos.</p>
+        <input id="auth-email"    class="auth-input" type="email"    placeholder="E-mail" autocomplete="email">
+        <input id="auth-password" class="auth-input" type="password" placeholder="Senha"  autocomplete="current-password">
+        <div id="auth-error" class="auth-error"></div>
+        <button class="auth-btn" id="auth-login-btn">Entrar</button>
+        <button class="auth-btn secondary" id="auth-signup-btn">Criar conta</button>
+      </div>
+    </div>
+
+    <!-- Auth indicator (bottom-right) -->
+    <div id="auth-indicator" title="Clique para sair">⬤ offline</div>
+
+    <!-- Sync status (bottom-left) -->
+    <div id="sync-status">↑ sincronizando...</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
     <script src="data.js"></script>
+    <script src="db.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

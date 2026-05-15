@@ -1,0 +1,276 @@
+{
+  "_instrucoes": "Para cada alimento: rode 'node buscar_alimento.js <busca_en>' para encontrar o food_id. Para ver porções, rode 'node buscar_alimento.js --id <food_id>'. Deixe serving_id como null para usar 100g automaticamente. tipo: 'peso' = calculado por grama | 'unidade' = calculado por unidade (ex: 1 ovo, 1 banana).",
+  "arroz_branco": {
+    "nome": "Arroz Branco cozido",
+    "busca_en": "white rice cooked",
+    "tipo": "peso",
+    "food_id": "39725",
+    "serving_id": null
+  },
+  "feijao": {
+    "nome": "Feijão Carioca cozido",
+    "busca_en": "carioca beans cooked",
+    "tipo": "peso",
+    "food_id": "3210",
+    "serving_id": null
+  },
+  "batata_inglesa": {
+    "nome": "Batata Inglesa cozida",
+    "busca_en": "boiled potato",
+    "tipo": "peso",
+    "food_id": "36858",
+    "serving_id": null
+  },
+  "batata_doce": {
+    "nome": "Batata Doce cozida",
+    "busca_en": "sweet potato cooked",
+    "tipo": "peso",
+    "food_id": "36619",
+    "serving_id": null
+  },
+  "mandioca": {
+    "nome": "Mandioca Aipim cozida",
+    "busca_en": "cassava cooked",
+    "tipo": "peso",
+    "food_id": "5842",
+    "serving_id": null
+  },
+  "pao_forma": {
+    "nome": "Pão de Forma",
+    "busca_en": "white sandwich bread slice",
+    "tipo": "unidade",
+    "food_id": "3433",
+    "serving_id": null
+  },
+  "aveia": {
+    "nome": "Aveia em Flocos",
+    "busca_en": "rolled oats",
+    "tipo": "peso",
+    "food_id": "27572",
+    "serving_id": null
+  },
+  "tapioca": {
+    "nome": "Goma de Tapioca",
+    "busca_en": "tapioca starch dry",
+    "tipo": "peso",
+    "food_id": "39740",
+    "serving_id": null
+  },
+  "macarrao": {
+    "nome": "Macarrão cozido",
+    "busca_en": "pasta cooked",
+    "tipo": "peso",
+    "food_id": "39764",
+    "serving_id": null
+  },
+  "frango": {
+    "nome": "Peito de Frango grelhado",
+    "busca_en": "skinless chicken breast cooked",
+    "tipo": "peso",
+    "food_id": "4881229",
+    "serving_id": null
+  },
+  "sobrecoxa": {
+    "nome": "Sobrecoxa de Frango assada",
+    "busca_en": "chicken thigh roasted",
+    "tipo": "peso",
+    "food_id": "34483",
+    "serving_id": null
+  },
+  "acem_moido": {
+    "nome": "Carne Moída Acém",
+    "busca_en": "ground beef cooked",
+    "tipo": "peso",
+    "food_id": "40399",
+    "serving_id": null
+  },
+  "lombo_suino": {
+    "nome": "Lombo Suíno assado",
+    "busca_en": "pork loin roasted",
+    "tipo": "peso",
+    "food_id": "36042",
+    "serving_id": null
+  },
+  "tilapia": {
+    "nome": "Filé de Tilápia grelhado",
+    "busca_en": "tilapia fish cooked baked",
+    "tipo": "peso",
+    "food_id": "38212",
+    "serving_id": null
+  },
+  "ovos": {
+    "nome": "Ovo de Galinha inteiro",
+    "busca_en": "whole egg large",
+    "tipo": "unidade",
+    "food_id": "33792",
+    "serving_id": null
+  },
+  "castanhas": {
+    "nome": "Mix de Castanhas",
+    "busca_en": "mixed nuts",
+    "tipo": "peso",
+    "food_id": "71998",
+    "serving_id": null
+  },
+  "pasta_amendoim": {
+    "nome": "Pasta de Amendoim integral",
+    "busca_en": "natural peanut butter",
+    "tipo": "peso",
+    "food_id": "1193869",
+    "serving_id": null
+  },
+  "chia": {
+    "nome": "Semente de Chia",
+    "busca_en": "chia seeds",
+    "tipo": "peso",
+    "food_id": "90178387",
+    "serving_id": null
+  },
+  "leite": {
+    "nome": "Leite de Vaca integral",
+    "busca_en": "whole milk",
+    "tipo": "peso",
+    "food_id": "794",
+    "serving_id": null
+  },
+  "iogurte": {
+    "nome": "Iogurte Natural desnatado",
+    "busca_en": "plain nonfat yogurt",
+    "tipo": "peso",
+    "food_id": "22685518",
+    "serving_id": null
+  },
+  "queijo_minas": {
+    "nome": "Queijo Minas Frescal",
+    "busca_en": "fresh white cheese",
+    "tipo": "peso",
+    "food_id": "437262",
+    "serving_id": null
+  },
+  "cottage": {
+    "nome": "Queijo Cottage",
+    "busca_en": "cottage cheese low fat",
+    "tipo": "peso",
+    "food_id": "111118",
+    "serving_id": null
+  },
+  "salada": {
+    "nome": "Alface",
+    "busca_en": "green leaf lettuce",
+    "tipo": "peso",
+    "food_id": "36415",
+    "serving_id": null
+  },
+  "legumes_amarelos": {
+    "nome": "Abóbora cozida",
+    "busca_en": "pumpkin cooked",
+    "tipo": "peso",
+    "food_id": "36552",
+    "serving_id": null
+  },
+  "legumes_verdes": {
+    "nome": "Chuchu cozido",
+    "busca_en": "chayote cooked",
+    "tipo": "peso",
+    "food_id": "36339",
+    "serving_id": null
+  },
+  "vegetais_base": {
+    "nome": "Tomate",
+    "busca_en": "tomato",
+    "tipo": "peso",
+    "food_id": "6138",
+    "serving_id": null
+  },
+  "couve": {
+    "nome": "Couve folha refogada",
+    "busca_en": "kale cooked",
+    "tipo": "peso",
+    "food_id": "5916",
+    "serving_id": null
+  },
+  "cenoura": {
+    "nome": "Cenoura",
+    "busca_en": "carrot raw",
+    "tipo": "peso",
+    "food_id": "6034",
+    "serving_id": null
+  },
+  "banana": {
+    "nome": "Banana",
+    "busca_en": "banana",
+    "tipo": "unidade",
+    "food_id": "35755",
+    "serving_id": null
+  },
+  "abacaxi": {
+    "nome": "Abacaxi",
+    "busca_en": "pineapple chunks raw",
+    "tipo": "peso",
+    "food_id": "5466",
+    "serving_id": null
+  },
+  "melancia": {
+    "nome": "Melancia",
+    "busca_en": "watermelon raw",
+    "tipo": "peso",
+    "food_id": "5491",
+    "serving_id": null
+  },
+  "laranja": {
+    "nome": "Laranja",
+    "busca_en": "orange medium",
+    "tipo": "unidade",
+    "food_id": "5271",
+    "serving_id": null
+  },
+  "pera": {
+    "nome": "Pera",
+    "busca_en": "pear fruit",
+    "tipo": "unidade",
+    "food_id": "5457",
+    "serving_id": null
+  },
+  "frutas_vermelhas": {
+    "nome": "Morango",
+    "busca_en": "strawberries fresh",
+    "tipo": "peso",
+    "food_id": "5525",
+    "serving_id": null
+  },
+  "abacate": {
+    "nome": "Abacate",
+    "busca_en": "avocado",
+    "tipo": "peso",
+    "food_id": "35752",
+    "serving_id": null
+  },
+  "mamao": {
+    "nome": "Mamão Papaia",
+    "busca_en": "papaya medium",
+    "tipo": "unidade",
+    "food_id": "5441",
+    "serving_id": null
+  },
+  "mel": {
+    "nome": "Mel de Abelha",
+    "busca_en": "honey",
+    "tipo": "peso",
+    "food_id": "39536",
+    "serving_id": null
+  },
+  "yopro": {
+    "nome": "YoPRO Iogurte Proteico",
+    "busca_en": "greek yogurt high protein 160 calories",
+    "tipo": "unidade",
+    "food_id": "32696412",
+    "serving_id": null
+  },
+  "granola": {
+    "nome": "Granola",
+    "busca_en": "granola",
+    "tipo": "peso",
+    "food_id": "4655",
+    "serving_id": null
+  }
+}
