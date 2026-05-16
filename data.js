@@ -563,48 +563,38 @@ const MEALS = [
       },
       {
         "id": "cafe-13",
-        "name": "Pão com Queijo Frescal e Abacate",
-        "desc": "O tostex da recomposição — gordura boa e proteína logo cedo",
+        "name": "Açaí com Granola e Banana",
+        "desc": "Tigela energética — carboidrato de qualidade pra começar com força",
         "ingredients": [
           {
-            "food": "Pão de forma",
-            "qty": 2,
-            "unit": "fatias",
-            "kcal": 126,
-            "prot": 5.4,
-            "carb": 21.6,
-            "fat": 1.8,
-            "shopKey": "pao_forma"
-          },
-          {
-            "food": "Queijo Minas/Frescal",
-            "qty": 50,
+            "food": "Açaí polpa",
+            "qty": 100,
             "unit": "g",
-            "kcal": 133,
-            "prot": 9,
-            "carb": 0.9,
-            "fat": 10.5,
-            "shopKey": "queijo_minas"
+            "kcal": 60,
+            "prot": 1.8,
+            "carb": 6,
+            "fat": 0.9,
+            "shopKey": "acai"
           },
           {
-            "food": "Abacate",
-            "qty": 80,
+            "food": "Granola",
+            "qty": 30,
             "unit": "g",
-            "kcal": 127,
-            "prot": 1.7,
-            "carb": 6.7,
-            "fat": 11.7,
-            "shopKey": "abacate"
+            "kcal": 135,
+            "prot": 3,
+            "carb": 21,
+            "fat": 4.5,
+            "shopKey": "granola"
           },
           {
-            "food": "Ovo cozido",
+            "food": "Banana",
             "qty": 1,
             "unit": "un",
-            "kcal": 65,
-            "prot": 5.6,
-            "carb": 0.3,
-            "fat": 4.3,
-            "shopKey": "ovos"
+            "kcal": 120,
+            "prot": 1.5,
+            "carb": 30.8,
+            "fat": 0.4,
+            "shopKey": "banana"
           }
         ]
       },
@@ -657,38 +647,48 @@ const MEALS = [
       },
       {
         "id": "cafe-15",
-        "name": "Ovos Mexidos com Abacate e Melancia",
-        "desc": "Low carb matinal — gordura e proteína pra quem treina mais tarde",
+        "name": "Torrada com Queijo, Ovo e Tomate",
+        "desc": "Café estilo brunch sem complicação — torrada crocante com proteína",
         "ingredients": [
           {
-            "food": "Ovos mexidos",
-            "qty": 3,
+            "food": "Torrada Multigrãos",
+            "qty": 30,
+            "unit": "g",
+            "kcal": 117,
+            "prot": 3.6,
+            "carb": 19,
+            "fat": 2.9,
+            "shopKey": "torrada"
+          },
+          {
+            "food": "Queijo Minas/Frescal",
+            "qty": 40,
+            "unit": "g",
+            "kcal": 107,
+            "prot": 7.2,
+            "carb": 0.7,
+            "fat": 8.4,
+            "shopKey": "queijo_minas"
+          },
+          {
+            "food": "Ovo cozido",
+            "qty": 1,
             "unit": "un",
-            "kcal": 194,
-            "prot": 16.7,
-            "carb": 0.9,
-            "fat": 13,
+            "kcal": 65,
+            "prot": 5.6,
+            "carb": 0.3,
+            "fat": 4.3,
             "shopKey": "ovos"
           },
           {
-            "food": "Abacate",
+            "food": "Tomate fatiado",
             "qty": 80,
             "unit": "g",
-            "kcal": 127,
-            "prot": 1.7,
-            "carb": 6.7,
-            "fat": 11.7,
-            "shopKey": "abacate"
-          },
-          {
-            "food": "Melancia",
-            "qty": 135,
-            "unit": "g",
-            "kcal": 41,
+            "kcal": 20,
             "prot": 0.8,
-            "carb": 10.1,
-            "fat": 0.1,
-            "shopKey": "melancia"
+            "carb": 4,
+            "fat": 0.2,
+            "shopKey": "vegetais_base"
           }
         ]
       }
@@ -1022,29 +1022,9 @@ const MEALS = [
       },
       {
         "id": "lanche1-11",
-        "name": "Abacate com Mel e Ovos Cozidos",
-        "desc": "Gordura boa + proteína — sustenta sem pesar",
+        "name": "Ovos Cozidos com Queijo e Torrada",
+        "desc": "Trio clássico sem fogão — proteína, gordura boa e crocância",
         "ingredients": [
-          {
-            "food": "Abacate",
-            "qty": 80,
-            "unit": "g",
-            "kcal": 127,
-            "prot": 1.7,
-            "carb": 6.7,
-            "fat": 11.7,
-            "shopKey": "abacate"
-          },
-          {
-            "food": "Mel",
-            "qty": 10,
-            "unit": "g",
-            "kcal": 29,
-            "prot": 0,
-            "carb": 7.9,
-            "fat": 0,
-            "shopKey": "mel"
-          },
           {
             "food": "Ovos cozidos",
             "qty": 2,
@@ -1054,6 +1034,26 @@ const MEALS = [
             "carb": 0.6,
             "fat": 8.7,
             "shopKey": "ovos"
+          },
+          {
+            "food": "Queijo Minas/Frescal",
+            "qty": 40,
+            "unit": "g",
+            "kcal": 107,
+            "prot": 7.2,
+            "carb": 0.7,
+            "fat": 8.4,
+            "shopKey": "queijo_minas"
+          },
+          {
+            "food": "Torrada Multigrãos",
+            "qty": 30,
+            "unit": "g",
+            "kcal": 117,
+            "prot": 3.6,
+            "carb": 19,
+            "fat": 2.9,
+            "shopKey": "torrada"
           }
         ]
       },
@@ -3468,28 +3468,18 @@ const MEALS = [
       },
       {
         "id": "ceia-13",
-        "name": "Queijo Frescal com Abacate e Mel",
-        "desc": "Low carb pra ceia — gordura boa que ajuda a dormir bem",
+        "name": "Cottage com Mel e Morango",
+        "desc": "Proteína lenta na ceia — cottage sustenta o sono e evita catabolismo",
         "ingredients": [
           {
-            "food": "Queijo Minas/Frescal",
-            "qty": 60,
+            "food": "Cottage 4%",
+            "qty": 113,
             "unit": "g",
-            "kcal": 160,
-            "prot": 10.8,
-            "carb": 1.1,
-            "fat": 12.6,
-            "shopKey": "queijo_minas"
-          },
-          {
-            "food": "Abacate",
-            "qty": 60,
-            "unit": "g",
-            "kcal": 95,
-            "prot": 1.3,
+            "kcal": 110,
+            "prot": 13,
             "carb": 5,
-            "fat": 8.8,
-            "shopKey": "abacate"
+            "fat": 5,
+            "shopKey": "cottage"
           },
           {
             "food": "Mel",
@@ -3500,6 +3490,16 @@ const MEALS = [
             "carb": 7.9,
             "fat": 0,
             "shopKey": "mel"
+          },
+          {
+            "food": "Morango fresco",
+            "qty": 100,
+            "unit": "g",
+            "kcal": 40,
+            "prot": 1,
+            "carb": 9,
+            "fat": 0.4,
+            "shopKey": "frutas_vermelhas"
           }
         ]
       },
@@ -3591,6 +3591,8 @@ const MEALS = [
   }
 ];
 const SHOP_MAP = {
+  "torrada": {"name":"Torrada Multigrãos","cat":"🍞 Pães e Massas","buyUnit":"pct","buySize":150,"unitG":"g","price":[5,8]},
+  "acai": {"name":"Açaí Polpa","cat":"🍇 Frutas","buyUnit":"pct","buySize":400,"unitG":"g","price":[10,16]},
   "arroz_branco": {
     "name": "Arroz Branco",
     "cat": "🍚 Carboidratos",
