@@ -46,48 +46,48 @@ const MEALS = [
       },
       {
         "id": "cafe-2",
-        "name": "Overnight Oats de Amora e Morango",
-        "desc": "Fresco, rico em fibras, pronto ao acordar",
+        "name": "Panqueca de Aveia com Banana e Mel",
+        "desc": "Doce, macia e fácil de comer — pronto em 5 minutos",
         "ingredients": [
           {
             "food": "Aveia em flocos",
-            "qty": 54,
+            "qty": 40,
             "unit": "g",
-            "kcal": 211,
-            "prot": 7,
-            "carb": 36.2,
-            "fat": 3.8,
+            "kcal": 156,
+            "prot": 5.2,
+            "carb": 26.8,
+            "fat": 2.8,
             "shopKey": "aveia"
           },
           {
-            "food": "Semente de Chia",
-            "qty": 14,
-            "unit": "g",
-            "kcal": 65,
-            "prot": 2.2,
-            "carb": 5.7,
-            "fat": 4.1,
-            "shopKey": "chia"
+            "food": "Ovos",
+            "qty": 2,
+            "unit": "un",
+            "kcal": 146,
+            "prot": 12.5,
+            "carb": 1,
+            "fat": 9.7,
+            "shopKey": "ovos"
           },
           {
-            "food": "Iogurte Zero Açúcar (Morango/Ameixa)",
-            "qty": 135,
-            "unit": "g",
-            "kcal": 78,
-            "prot": 5.4,
-            "carb": 5.9,
-            "fat": 3.5,
-            "shopKey": "iogurte"
+            "food": "Banana",
+            "qty": 1,
+            "unit": "un",
+            "kcal": 120,
+            "prot": 1.5,
+            "carb": 30.8,
+            "fat": 0.4,
+            "shopKey": "banana"
           },
           {
-            "food": "Morangos e Amoras",
-            "qty": 68,
+            "food": "Mel",
+            "qty": 10,
             "unit": "g",
-            "kcal": 27,
-            "prot": 0.7,
-            "carb": 6.1,
-            "fat": 0.3,
-            "shopKey": "frutas_vermelhas"
+            "kcal": 29,
+            "prot": 0,
+            "carb": 7.9,
+            "fat": 0,
+            "shopKey": "mel"
           }
         ]
       },
@@ -362,6 +362,335 @@ const MEALS = [
             "shopKey": "chia"
           }
         ]
+      },
+      {
+        "id": "cafe-9",
+        "name": "Tapioca de Queijo com Ovo e Mel",
+        "desc": "O melhor da semana 2 no café — tapioca recheada e adocicada",
+        "ingredients": [
+          {
+            "food": "Goma de tapioca",
+            "qty": 54,
+            "unit": "g",
+            "kcal": 194,
+            "prot": 0,
+            "carb": 47.5,
+            "fat": 0,
+            "shopKey": "tapioca"
+          },
+          {
+            "food": "Ovos",
+            "qty": 2,
+            "unit": "un",
+            "kcal": 146,
+            "prot": 12.5,
+            "carb": 1,
+            "fat": 9.7,
+            "shopKey": "ovos"
+          },
+          {
+            "food": "Queijo Minas/Frescal",
+            "qty": 40,
+            "unit": "g",
+            "kcal": 107,
+            "prot": 7.2,
+            "carb": 0.7,
+            "fat": 8.4,
+            "shopKey": "queijo_minas"
+          },
+          {
+            "food": "Mel",
+            "qty": 10,
+            "unit": "g",
+            "kcal": 29,
+            "prot": 0,
+            "carb": 7.9,
+            "fat": 0,
+            "shopKey": "mel"
+          }
+        ]
+      },
+      {
+        "id": "cafe-10",
+        "name": "Granola com Iogurte e Morango",
+        "desc": "Cremoso, doce e sem esforço — cumbuca de campeão",
+        "ingredients": [
+          {
+            "food": "Granola",
+            "qty": 50,
+            "unit": "g",
+            "kcal": 225,
+            "prot": 5,
+            "carb": 34.9,
+            "fat": 7.4,
+            "shopKey": "granola"
+          },
+          {
+            "food": "Iogurte Natural Light",
+            "qty": 200,
+            "unit": "g",
+            "kcal": 117,
+            "prot": 8,
+            "carb": 8.8,
+            "fat": 5.3,
+            "shopKey": "iogurte"
+          },
+          {
+            "food": "Morango fresco",
+            "qty": 100,
+            "unit": "g",
+            "kcal": 40,
+            "prot": 1,
+            "carb": 9,
+            "fat": 0.4,
+            "shopKey": "frutas_vermelhas"
+          },
+          {
+            "food": "Mel",
+            "qty": 10,
+            "unit": "g",
+            "kcal": 29,
+            "prot": 0,
+            "carb": 7.9,
+            "fat": 0,
+            "shopKey": "mel"
+          }
+        ]
+      },
+      {
+        "id": "cafe-11",
+        "name": "Omelete de Queijo e Tomate no Pão",
+        "desc": "Café proteico no estilo brunch — ovos com queijo derretido",
+        "ingredients": [
+          {
+            "food": "Ovos",
+            "qty": 3,
+            "unit": "un",
+            "kcal": 194,
+            "prot": 16.7,
+            "carb": 0.9,
+            "fat": 13,
+            "shopKey": "ovos"
+          },
+          {
+            "food": "Queijo Minas/Frescal",
+            "qty": 40,
+            "unit": "g",
+            "kcal": 107,
+            "prot": 7.2,
+            "carb": 0.7,
+            "fat": 8.4,
+            "shopKey": "queijo_minas"
+          },
+          {
+            "food": "Tomate fatiado",
+            "qty": 80,
+            "unit": "g",
+            "kcal": 20,
+            "prot": 0.8,
+            "carb": 4,
+            "fat": 0.2,
+            "shopKey": "vegetais_base"
+          },
+          {
+            "food": "Pão de forma",
+            "qty": 2,
+            "unit": "fatias",
+            "kcal": 126,
+            "prot": 5.4,
+            "carb": 21.6,
+            "fat": 1.8,
+            "shopKey": "pao_forma"
+          }
+        ]
+      },
+      {
+        "id": "cafe-12",
+        "name": "Shake de Banana com Chia, Aveia e Pasta de Amendoim",
+        "desc": "Engolir rápido, energia longa — o smoothie completo com chia",
+        "ingredients": [
+          {
+            "food": "Leite",
+            "qty": 250,
+            "unit": "ml",
+            "kcal": 125,
+            "prot": 8,
+            "carb": 12,
+            "fat": 5,
+            "shopKey": "leite"
+          },
+          {
+            "food": "Banana",
+            "qty": 1,
+            "unit": "un",
+            "kcal": 120,
+            "prot": 1.5,
+            "carb": 30.8,
+            "fat": 0.4,
+            "shopKey": "banana"
+          },
+          {
+            "food": "Aveia em flocos",
+            "qty": 30,
+            "unit": "g",
+            "kcal": 117,
+            "prot": 3.9,
+            "carb": 20.1,
+            "fat": 2.1,
+            "shopKey": "aveia"
+          },
+          {
+            "food": "Pasta de amendoim",
+            "qty": 20,
+            "unit": "g",
+            "kcal": 127,
+            "prot": 5.1,
+            "carb": 4.1,
+            "fat": 10.1,
+            "shopKey": "pasta_amendoim"
+          },
+          {
+            "food": "Semente de Chia",
+            "qty": 14,
+            "unit": "g",
+            "kcal": 68,
+            "prot": 2.3,
+            "carb": 5.7,
+            "fat": 4.1,
+            "shopKey": "chia"
+          }
+        ]
+      },
+      {
+        "id": "cafe-13",
+        "name": "Pão com Queijo Frescal e Abacate",
+        "desc": "O tostex da recomposição — gordura boa e proteína logo cedo",
+        "ingredients": [
+          {
+            "food": "Pão de forma",
+            "qty": 2,
+            "unit": "fatias",
+            "kcal": 126,
+            "prot": 5.4,
+            "carb": 21.6,
+            "fat": 1.8,
+            "shopKey": "pao_forma"
+          },
+          {
+            "food": "Queijo Minas/Frescal",
+            "qty": 50,
+            "unit": "g",
+            "kcal": 133,
+            "prot": 9,
+            "carb": 0.9,
+            "fat": 10.5,
+            "shopKey": "queijo_minas"
+          },
+          {
+            "food": "Abacate",
+            "qty": 80,
+            "unit": "g",
+            "kcal": 127,
+            "prot": 1.7,
+            "carb": 6.7,
+            "fat": 11.7,
+            "shopKey": "abacate"
+          },
+          {
+            "food": "Ovo cozido",
+            "qty": 1,
+            "unit": "un",
+            "kcal": 65,
+            "prot": 5.6,
+            "carb": 0.3,
+            "fat": 4.3,
+            "shopKey": "ovos"
+          }
+        ]
+      },
+      {
+        "id": "cafe-14",
+        "name": "Tapioca Doce com Ovo e Morango",
+        "desc": "Recheio adocicado sem sorvete — resolve o problema do overnight",
+        "ingredients": [
+          {
+            "food": "Goma de tapioca",
+            "qty": 54,
+            "unit": "g",
+            "kcal": 194,
+            "prot": 0,
+            "carb": 47.5,
+            "fat": 0,
+            "shopKey": "tapioca"
+          },
+          {
+            "food": "Ovos",
+            "qty": 2,
+            "unit": "un",
+            "kcal": 130,
+            "prot": 11.1,
+            "carb": 0.6,
+            "fat": 8.7,
+            "shopKey": "ovos"
+          },
+          {
+            "food": "Mel",
+            "qty": 10,
+            "unit": "g",
+            "kcal": 29,
+            "prot": 0,
+            "carb": 7.9,
+            "fat": 0,
+            "shopKey": "mel"
+          },
+          {
+            "food": "Morango fresco",
+            "qty": 80,
+            "unit": "g",
+            "kcal": 32,
+            "prot": 0.8,
+            "carb": 7.2,
+            "fat": 0.3,
+            "shopKey": "frutas_vermelhas"
+          }
+        ]
+      },
+      {
+        "id": "cafe-15",
+        "name": "Ovos Mexidos com Abacate e Melancia",
+        "desc": "Low carb matinal — gordura e proteína pra quem treina mais tarde",
+        "ingredients": [
+          {
+            "food": "Ovos mexidos",
+            "qty": 3,
+            "unit": "un",
+            "kcal": 194,
+            "prot": 16.7,
+            "carb": 0.9,
+            "fat": 13,
+            "shopKey": "ovos"
+          },
+          {
+            "food": "Abacate",
+            "qty": 80,
+            "unit": "g",
+            "kcal": 127,
+            "prot": 1.7,
+            "carb": 6.7,
+            "fat": 11.7,
+            "shopKey": "abacate"
+          },
+          {
+            "food": "Melancia",
+            "qty": 135,
+            "unit": "g",
+            "kcal": 41,
+            "prot": 0.8,
+            "carb": 10.1,
+            "fat": 0.1,
+            "shopKey": "melancia"
+          }
+        ]
       }
     ]
   },
@@ -454,8 +783,8 @@ const MEALS = [
       },
       {
         "id": "lanche1-4",
-        "name": "Sanduíche de Frango",
-        "desc": "Perfeito para dias em que sente mais fome",
+        "name": "Sanduíche de Frango com Queijo e Tomate",
+        "desc": "Frango úmido com queijo frescal e tomate — bem menos seco",
         "ingredients": [
           {
             "food": "Pão de forma",
@@ -476,6 +805,26 @@ const MEALS = [
             "carb": 0,
             "fat": 2.4,
             "shopKey": "frango"
+          },
+          {
+            "food": "Queijo Minas/Frescal",
+            "qty": 27,
+            "unit": "g",
+            "kcal": 72,
+            "prot": 4.9,
+            "carb": 0.5,
+            "fat": 5.7,
+            "shopKey": "queijo_minas"
+          },
+          {
+            "food": "Tomate fatiado",
+            "qty": 50,
+            "unit": "g",
+            "kcal": 10,
+            "prot": 0.4,
+            "carb": 1.9,
+            "fat": 0.1,
+            "shopKey": "vegetais_base"
           }
         ]
       },
@@ -593,6 +942,285 @@ const MEALS = [
             "prot": 7.3,
             "carb": 0.7,
             "fat": 8.5,
+            "shopKey": "queijo_minas"
+          }
+        ]
+      },
+      {
+        "id": "lanche1-9",
+        "name": "Iogurte com Granola e Morango",
+        "desc": "Versão leve e prática da cumbuca favorita",
+        "ingredients": [
+          {
+            "food": "Iogurte Natural Light",
+            "qty": 200,
+            "unit": "g",
+            "kcal": 117,
+            "prot": 8,
+            "carb": 8.8,
+            "fat": 5.3,
+            "shopKey": "iogurte"
+          },
+          {
+            "food": "Granola",
+            "qty": 30,
+            "unit": "g",
+            "kcal": 135,
+            "prot": 3,
+            "carb": 20.9,
+            "fat": 4.5,
+            "shopKey": "granola"
+          },
+          {
+            "food": "Morango fresco",
+            "qty": 80,
+            "unit": "g",
+            "kcal": 32,
+            "prot": 0.8,
+            "carb": 7.2,
+            "fat": 0.3,
+            "shopKey": "frutas_vermelhas"
+          }
+        ]
+      },
+      {
+        "id": "lanche1-10",
+        "name": "Tapioca com Pasta de Amendoim e Banana",
+        "desc": "Combinação doce e proteica que sustenta bem até o almoço",
+        "ingredients": [
+          {
+            "food": "Goma de tapioca",
+            "qty": 40,
+            "unit": "g",
+            "kcal": 144,
+            "prot": 0,
+            "carb": 35.2,
+            "fat": 0,
+            "shopKey": "tapioca"
+          },
+          {
+            "food": "Pasta de amendoim",
+            "qty": 20,
+            "unit": "g",
+            "kcal": 127,
+            "prot": 5.1,
+            "carb": 4.1,
+            "fat": 10.1,
+            "shopKey": "pasta_amendoim"
+          },
+          {
+            "food": "Banana",
+            "qty": 1,
+            "unit": "un",
+            "kcal": 120,
+            "prot": 1.5,
+            "carb": 30.8,
+            "fat": 0.4,
+            "shopKey": "banana"
+          }
+        ]
+      },
+      {
+        "id": "lanche1-11",
+        "name": "Abacate com Mel e Ovos Cozidos",
+        "desc": "Gordura boa + proteína — sustenta sem pesar",
+        "ingredients": [
+          {
+            "food": "Abacate",
+            "qty": 80,
+            "unit": "g",
+            "kcal": 127,
+            "prot": 1.7,
+            "carb": 6.7,
+            "fat": 11.7,
+            "shopKey": "abacate"
+          },
+          {
+            "food": "Mel",
+            "qty": 10,
+            "unit": "g",
+            "kcal": 29,
+            "prot": 0,
+            "carb": 7.9,
+            "fat": 0,
+            "shopKey": "mel"
+          },
+          {
+            "food": "Ovos cozidos",
+            "qty": 2,
+            "unit": "un",
+            "kcal": 130,
+            "prot": 11.1,
+            "carb": 0.6,
+            "fat": 8.7,
+            "shopKey": "ovos"
+          }
+        ]
+      },
+      {
+        "id": "lanche1-12",
+        "name": "Morango com Queijo Frescal e Granola",
+        "desc": "Doce do jeito certo — frutas, proteína e crocância",
+        "ingredients": [
+          {
+            "food": "Morango fresco",
+            "qty": 150,
+            "unit": "g",
+            "kcal": 60,
+            "prot": 1.5,
+            "carb": 13.5,
+            "fat": 0.6,
+            "shopKey": "frutas_vermelhas"
+          },
+          {
+            "food": "Queijo Minas/Frescal",
+            "qty": 50,
+            "unit": "g",
+            "kcal": 133,
+            "prot": 9,
+            "carb": 0.9,
+            "fat": 10.5,
+            "shopKey": "queijo_minas"
+          },
+          {
+            "food": "Granola",
+            "qty": 30,
+            "unit": "g",
+            "kcal": 135,
+            "prot": 3,
+            "carb": 21,
+            "fat": 4.5,
+            "shopKey": "granola"
+          }
+        ]
+      },
+      {
+        "id": "lanche1-13",
+        "name": "Vitamina de Abacate com Chia e Mel",
+        "desc": "Versão enxuta da vitamina favorita com chia — cabe num potinho",
+        "ingredients": [
+          {
+            "food": "Leite",
+            "qty": 200,
+            "unit": "ml",
+            "kcal": 100,
+            "prot": 6.4,
+            "carb": 9.6,
+            "fat": 4,
+            "shopKey": "leite"
+          },
+          {
+            "food": "Abacate",
+            "qty": 80,
+            "unit": "g",
+            "kcal": 127,
+            "prot": 1.7,
+            "carb": 6.7,
+            "fat": 11.7,
+            "shopKey": "abacate"
+          },
+          {
+            "food": "Aveia em flocos",
+            "qty": 20,
+            "unit": "g",
+            "kcal": 78,
+            "prot": 2.6,
+            "carb": 13.4,
+            "fat": 1.4,
+            "shopKey": "aveia"
+          },
+          {
+            "food": "Mel",
+            "qty": 10,
+            "unit": "g",
+            "kcal": 29,
+            "prot": 0,
+            "carb": 7.9,
+            "fat": 0,
+            "shopKey": "mel"
+          },
+          {
+            "food": "Semente de Chia",
+            "qty": 14,
+            "unit": "g",
+            "kcal": 68,
+            "prot": 2.3,
+            "carb": 5.7,
+            "fat": 4.1,
+            "shopKey": "chia"
+          }
+        ]
+      },
+      {
+        "id": "lanche1-14",
+        "name": "Banana com Castanhas e Mel",
+        "desc": "Trio clássico de energia rápida + gordura boa",
+        "ingredients": [
+          {
+            "food": "Banana",
+            "qty": 1,
+            "unit": "un",
+            "kcal": 120,
+            "prot": 1.5,
+            "carb": 30.8,
+            "fat": 0.4,
+            "shopKey": "banana"
+          },
+          {
+            "food": "Mix de Castanhas",
+            "qty": 30,
+            "unit": "g",
+            "kcal": 181,
+            "prot": 6,
+            "carb": 6,
+            "fat": 15.5,
+            "shopKey": "castanhas"
+          },
+          {
+            "food": "Mel",
+            "qty": 10,
+            "unit": "g",
+            "kcal": 29,
+            "prot": 0,
+            "carb": 7.9,
+            "fat": 0,
+            "shopKey": "mel"
+          }
+        ]
+      },
+      {
+        "id": "lanche1-15",
+        "name": "Mini Crepioca de Queijo",
+        "desc": "A crepioca em tamanho de lanche — rápida e proteica",
+        "ingredients": [
+          {
+            "food": "Goma de tapioca",
+            "qty": 35,
+            "unit": "g",
+            "kcal": 126,
+            "prot": 0,
+            "carb": 30.8,
+            "fat": 0,
+            "shopKey": "tapioca"
+          },
+          {
+            "food": "Ovos",
+            "qty": 2,
+            "unit": "un",
+            "kcal": 130,
+            "prot": 11.1,
+            "carb": 0.6,
+            "fat": 8.7,
+            "shopKey": "ovos"
+          },
+          {
+            "food": "Queijo Minas/Frescal",
+            "qty": 30,
+            "unit": "g",
+            "kcal": 80,
+            "prot": 5.4,
+            "carb": 0.5,
+            "fat": 6.3,
             "shopKey": "queijo_minas"
           }
         ]
@@ -960,6 +1588,335 @@ const MEALS = [
             "shopKey": "couve"
           }
         ]
+      },
+      {
+        "id": "almoco-9",
+        "name": "Frango ao Molho de Tomate com Arroz e Legumes",
+        "desc": "O frango padrão, mas molhado — nunca seca no prato",
+        "ingredients": [
+          {
+            "food": "Arroz Branco",
+            "qty": 203,
+            "unit": "g",
+            "kcal": 263,
+            "prot": 5.1,
+            "carb": 56.7,
+            "fat": 0.4,
+            "shopKey": "arroz_branco"
+          },
+          {
+            "food": "Feijão",
+            "qty": 135,
+            "unit": "g",
+            "kcal": 104,
+            "prot": 7,
+            "carb": 18.4,
+            "fat": 0.7,
+            "shopKey": "feijao"
+          },
+          {
+            "food": "Frango desfiado",
+            "qty": 203,
+            "unit": "g",
+            "kcal": 335,
+            "prot": 62.8,
+            "carb": 0,
+            "fat": 7.3,
+            "shopKey": "frango"
+          },
+          {
+            "food": "Tomate e Cebola refogados",
+            "qty": 108,
+            "unit": "g",
+            "kcal": 27,
+            "prot": 1.1,
+            "carb": 5.4,
+            "fat": 0.3,
+            "shopKey": "vegetais_base"
+          }
+        ]
+      },
+      {
+        "id": "almoco-10",
+        "name": "Acém com Batata Inglesa Ensopado",
+        "desc": "Carne bem molhada com batata — fartura e sabor",
+        "ingredients": [
+          {
+            "food": "Batata-inglesa",
+            "qty": 270,
+            "unit": "g",
+            "kcal": 232,
+            "prot": 5.4,
+            "carb": 54,
+            "fat": 0.3,
+            "shopKey": "batata_inglesa"
+          },
+          {
+            "food": "Carne Moída (Acém)",
+            "qty": 203,
+            "unit": "g",
+            "kcal": 385,
+            "prot": 50,
+            "carb": 0,
+            "fat": 20.3,
+            "shopKey": "acem_moido"
+          },
+          {
+            "food": "Feijão",
+            "qty": 135,
+            "unit": "g",
+            "kcal": 104,
+            "prot": 7,
+            "carb": 18.4,
+            "fat": 0.7,
+            "shopKey": "feijao"
+          },
+          {
+            "food": "Abóbora e Quiabo",
+            "qty": 108,
+            "unit": "g",
+            "kcal": 41,
+            "prot": 1.3,
+            "carb": 7.2,
+            "fat": 0.5,
+            "shopKey": "legumes_amarelos"
+          }
+        ]
+      },
+      {
+        "id": "almoco-11",
+        "name": "Sobrecoxa ao Molho com Macarrão",
+        "desc": "O macarrão que você ama agora com sobrecoxa suculenta",
+        "ingredients": [
+          {
+            "food": "Macarrão (peso cru)",
+            "qty": 92,
+            "unit": "g",
+            "kcal": 319,
+            "prot": 10.8,
+            "carb": 63.5,
+            "fat": 1.4,
+            "shopKey": "macarrao"
+          },
+          {
+            "food": "Sobrecoxa assada",
+            "qty": 135,
+            "unit": "g",
+            "kcal": 225,
+            "prot": 29.7,
+            "carb": 0,
+            "fat": 10.8,
+            "shopKey": "sobrecoxa"
+          },
+          {
+            "food": "Feijão",
+            "qty": 135,
+            "unit": "g",
+            "kcal": 104,
+            "prot": 7,
+            "carb": 18.4,
+            "fat": 0.7,
+            "shopKey": "feijao"
+          },
+          {
+            "food": "Tomate e Pimentão",
+            "qty": 108,
+            "unit": "g",
+            "kcal": 27,
+            "prot": 1.1,
+            "carb": 5.4,
+            "fat": 0.3,
+            "shopKey": "vegetais_base"
+          }
+        ]
+      },
+      {
+        "id": "almoco-12",
+        "name": "Carne Moída com Mandioca e Couve",
+        "desc": "Comida mineira com proteína — a mandioca que você gostou no lugar do arroz",
+        "ingredients": [
+          {
+            "food": "Carne Moída (Acém)",
+            "qty": 203,
+            "unit": "g",
+            "kcal": 385,
+            "prot": 50,
+            "carb": 0,
+            "fat": 20.3,
+            "shopKey": "acem_moido"
+          },
+          {
+            "food": "Mandioca cozida",
+            "qty": 203,
+            "unit": "g",
+            "kcal": 257,
+            "prot": 2,
+            "carb": 60.8,
+            "fat": 0.4,
+            "shopKey": "mandioca"
+          },
+          {
+            "food": "Feijão",
+            "qty": 135,
+            "unit": "g",
+            "kcal": 104,
+            "prot": 7,
+            "carb": 18.4,
+            "fat": 0.7,
+            "shopKey": "feijao"
+          },
+          {
+            "food": "Couve refogada",
+            "qty": 108,
+            "unit": "g",
+            "kcal": 41,
+            "prot": 2.7,
+            "carb": 5.4,
+            "fat": 0.7,
+            "shopKey": "couve"
+          }
+        ]
+      },
+      {
+        "id": "almoco-13",
+        "name": "Tilápia ao Forno com Batata Doce e Couve",
+        "desc": "Almoço leve e muito proteico — peixe no forno sem cheiro",
+        "ingredients": [
+          {
+            "food": "Tilápia grelhada",
+            "qty": 243,
+            "unit": "g",
+            "kcal": 311,
+            "prot": 62.1,
+            "carb": 0,
+            "fat": 5.7,
+            "shopKey": "tilapia"
+          },
+          {
+            "food": "Batata-doce cozida",
+            "qty": 203,
+            "unit": "g",
+            "kcal": 174,
+            "prot": 3.2,
+            "carb": 40.5,
+            "fat": 0.3,
+            "shopKey": "batata_doce"
+          },
+          {
+            "food": "Feijão",
+            "qty": 108,
+            "unit": "g",
+            "kcal": 83,
+            "prot": 5.6,
+            "carb": 14.7,
+            "fat": 0.5,
+            "shopKey": "feijao"
+          },
+          {
+            "food": "Couve refogada",
+            "qty": 108,
+            "unit": "g",
+            "kcal": 41,
+            "prot": 2.7,
+            "carb": 5.4,
+            "fat": 0.7,
+            "shopKey": "couve"
+          }
+        ]
+      },
+      {
+        "id": "almoco-14",
+        "name": "Frango ao Forno com Batata Doce e Feijão",
+        "desc": "Trio dourado da recomposição — simples e certeiro",
+        "ingredients": [
+          {
+            "food": "Frango grelhado",
+            "qty": 203,
+            "unit": "g",
+            "kcal": 335,
+            "prot": 62.8,
+            "carb": 0,
+            "fat": 7.3,
+            "shopKey": "frango"
+          },
+          {
+            "food": "Batata-doce cozida",
+            "qty": 203,
+            "unit": "g",
+            "kcal": 174,
+            "prot": 3.2,
+            "carb": 40.5,
+            "fat": 0.3,
+            "shopKey": "batata_doce"
+          },
+          {
+            "food": "Feijão",
+            "qty": 135,
+            "unit": "g",
+            "kcal": 104,
+            "prot": 7,
+            "carb": 18.4,
+            "fat": 0.7,
+            "shopKey": "feijao"
+          },
+          {
+            "food": "Cenoura ralada",
+            "qty": 68,
+            "unit": "g",
+            "kcal": 28,
+            "prot": 1.1,
+            "carb": 6.5,
+            "fat": 0.1,
+            "shopKey": "cenoura"
+          }
+        ]
+      },
+      {
+        "id": "almoco-15",
+        "name": "Escondidinho de Batata Doce com Acém",
+        "desc": "Versão almoço do escondidinho — batata doce no lugar da inglesa",
+        "ingredients": [
+          {
+            "food": "Batata-doce amassada",
+            "qty": 203,
+            "unit": "g",
+            "kcal": 174,
+            "prot": 3.2,
+            "carb": 40.5,
+            "fat": 0.3,
+            "shopKey": "batata_doce"
+          },
+          {
+            "food": "Carne Moída (Acém)",
+            "qty": 203,
+            "unit": "g",
+            "kcal": 385,
+            "prot": 50,
+            "carb": 0,
+            "fat": 20.3,
+            "shopKey": "acem_moido"
+          },
+          {
+            "food": "Feijão",
+            "qty": 108,
+            "unit": "g",
+            "kcal": 83,
+            "prot": 5.6,
+            "carb": 14.7,
+            "fat": 0.5,
+            "shopKey": "feijao"
+          },
+          {
+            "food": "Tomate e Cebola",
+            "qty": 68,
+            "unit": "g",
+            "kcal": 17,
+            "prot": 0.7,
+            "carb": 3.4,
+            "fat": 0.2,
+            "shopKey": "vegetais_base"
+          }
+        ]
       }
     ]
   },
@@ -971,18 +1928,18 @@ const MEALS = [
     "options": [
       {
         "id": "pre-1",
-        "name": "Refeição de Força (Batata-doce e Frango)",
-        "desc": "A melhor base sólida anti-fadiga muscular",
+        "name": "Marmita Pré-Treino (Arroz, Frango e Cenoura)",
+        "desc": "Base salgada e saborosa — sem o doce excessivo",
         "ingredients": [
           {
-            "food": "Batata-doce cozida",
-            "qty": 203,
+            "food": "Arroz Branco",
+            "qty": 150,
             "unit": "g",
-            "kcal": 174,
-            "prot": 3.2,
-            "carb": 40.5,
+            "kcal": 194,
+            "prot": 3.8,
+            "carb": 41.9,
             "fat": 0.3,
-            "shopKey": "batata_doce"
+            "shopKey": "arroz_branco"
           },
           {
             "food": "Frango desfiado",
@@ -995,11 +1952,11 @@ const MEALS = [
             "shopKey": "frango"
           },
           {
-            "food": "Beterraba ralada",
+            "food": "Cenoura ralada",
             "qty": 68,
             "unit": "g",
             "kcal": 28,
-            "prot": 1.1,
+            "prot": 0.7,
             "carb": 6.5,
             "fat": 0.1,
             "shopKey": "cenoura"
@@ -1173,28 +2130,38 @@ const MEALS = [
       },
       {
         "id": "pre-7",
-        "name": "Pão com Lombo Desfiado",
-        "desc": "Usando as sobras",
+        "name": "Vitamina de Banana com Leite e Aveia",
+        "desc": "Shake natural rápido — energético sem pesar antes do treino",
         "ingredients": [
           {
-            "food": "Pão de forma",
-            "qty": 3,
-            "unit": "fatias",
-            "kcal": 189,
-            "prot": 8.1,
-            "carb": 32.4,
-            "fat": 2.7,
-            "shopKey": "pao_forma"
+            "food": "Leite",
+            "qty": 270,
+            "unit": "ml",
+            "kcal": 135,
+            "prot": 8.6,
+            "carb": 13,
+            "fat": 5.4,
+            "shopKey": "leite"
           },
           {
-            "food": "Lombo suíno iscas",
-            "qty": 108,
+            "food": "Banana",
+            "qty": 1,
+            "unit": "un",
+            "kcal": 120,
+            "prot": 1.5,
+            "carb": 30.8,
+            "fat": 0.4,
+            "shopKey": "banana"
+          },
+          {
+            "food": "Aveia em flocos",
+            "qty": 40,
             "unit": "g",
-            "kcal": 158,
-            "prot": 27,
-            "carb": 0,
-            "fat": 5,
-            "shopKey": "lombo_suino"
+            "kcal": 156,
+            "prot": 5.2,
+            "carb": 26.8,
+            "fat": 2.8,
+            "shopKey": "aveia"
           }
         ]
       },
@@ -1222,6 +2189,285 @@ const MEALS = [
             "carb": 0.9,
             "fat": 13,
             "shopKey": "ovos"
+          }
+        ]
+      },
+      {
+        "id": "pre-9",
+        "name": "Tapioca de Frango com Queijo",
+        "desc": "Leve antes do treino e muito mais saboroso — sem o pão seco",
+        "ingredients": [
+          {
+            "food": "Goma de tapioca",
+            "qty": 54,
+            "unit": "g",
+            "kcal": 194,
+            "prot": 0,
+            "carb": 47.5,
+            "fat": 0,
+            "shopKey": "tapioca"
+          },
+          {
+            "food": "Frango desfiado",
+            "qty": 80,
+            "unit": "g",
+            "kcal": 132,
+            "prot": 24.8,
+            "carb": 0,
+            "fat": 2.9,
+            "shopKey": "frango"
+          },
+          {
+            "food": "Queijo Minas/Frescal",
+            "qty": 40,
+            "unit": "g",
+            "kcal": 107,
+            "prot": 7.2,
+            "carb": 0.7,
+            "fat": 8.4,
+            "shopKey": "queijo_minas"
+          }
+        ]
+      },
+      {
+        "id": "pre-10",
+        "name": "Escondidinho Pré-Treino de Batata Inglesa e Frango",
+        "desc": "Versão compacta do jantar favorito — perfeito pra malhar pesado",
+        "ingredients": [
+          {
+            "food": "Batata Inglesa amassada",
+            "qty": 200,
+            "unit": "g",
+            "kcal": 172,
+            "prot": 4,
+            "carb": 40,
+            "fat": 0.2,
+            "shopKey": "batata_inglesa"
+          },
+          {
+            "food": "Frango desfiado",
+            "qty": 135,
+            "unit": "g",
+            "kcal": 223,
+            "prot": 41.9,
+            "carb": 0,
+            "fat": 4.9,
+            "shopKey": "frango"
+          },
+          {
+            "food": "Queijo Minas/Frescal",
+            "qty": 20,
+            "unit": "g",
+            "kcal": 53,
+            "prot": 3.6,
+            "carb": 0.4,
+            "fat": 4.2,
+            "shopKey": "queijo_minas"
+          }
+        ]
+      },
+      {
+        "id": "pre-11",
+        "name": "Arroz com Feijão e Ovo Mexido",
+        "desc": "O básico que nunca falha antes do treino",
+        "ingredients": [
+          {
+            "food": "Arroz Branco",
+            "qty": 150,
+            "unit": "g",
+            "kcal": 194,
+            "prot": 3.8,
+            "carb": 41.9,
+            "fat": 0.3,
+            "shopKey": "arroz_branco"
+          },
+          {
+            "food": "Feijão",
+            "qty": 108,
+            "unit": "g",
+            "kcal": 83,
+            "prot": 5.6,
+            "carb": 14.7,
+            "fat": 0.5,
+            "shopKey": "feijao"
+          },
+          {
+            "food": "Ovos mexidos",
+            "qty": 3,
+            "unit": "un",
+            "kcal": 194,
+            "prot": 16.7,
+            "carb": 0.9,
+            "fat": 13,
+            "shopKey": "ovos"
+          }
+        ]
+      },
+      {
+        "id": "pre-12",
+        "name": "Shake de Abacate com Chia e Banana",
+        "desc": "Versão pré-treino da vitamina favorita com chia — mais energia e saciedade",
+        "ingredients": [
+          {
+            "food": "Leite",
+            "qty": 270,
+            "unit": "ml",
+            "kcal": 135,
+            "prot": 8.6,
+            "carb": 13,
+            "fat": 5.4,
+            "shopKey": "leite"
+          },
+          {
+            "food": "Abacate",
+            "qty": 68,
+            "unit": "g",
+            "kcal": 108,
+            "prot": 1.4,
+            "carb": 5.7,
+            "fat": 9.9,
+            "shopKey": "abacate"
+          },
+          {
+            "food": "Banana",
+            "qty": 1,
+            "unit": "un",
+            "kcal": 120,
+            "prot": 1.5,
+            "carb": 30.8,
+            "fat": 0.4,
+            "shopKey": "banana"
+          },
+          {
+            "food": "Mel",
+            "qty": 10,
+            "unit": "g",
+            "kcal": 29,
+            "prot": 0,
+            "carb": 7.9,
+            "fat": 0,
+            "shopKey": "mel"
+          },
+          {
+            "food": "Semente de Chia",
+            "qty": 14,
+            "unit": "g",
+            "kcal": 68,
+            "prot": 2.3,
+            "carb": 5.7,
+            "fat": 4.1,
+            "shopKey": "chia"
+          }
+        ]
+      },
+      {
+        "id": "pre-13",
+        "name": "Pão com Pasta de Amendoim e Banana",
+        "desc": "Carbo + gordura boa — clássico pré-treino fácil de montar",
+        "ingredients": [
+          {
+            "food": "Pão de forma",
+            "qty": 3,
+            "unit": "fatias",
+            "kcal": 189,
+            "prot": 8.1,
+            "carb": 32.4,
+            "fat": 2.7,
+            "shopKey": "pao_forma"
+          },
+          {
+            "food": "Pasta de amendoim",
+            "qty": 27,
+            "unit": "g",
+            "kcal": 169,
+            "prot": 6.8,
+            "carb": 5.4,
+            "fat": 13.5,
+            "shopKey": "pasta_amendoim"
+          },
+          {
+            "food": "Banana",
+            "qty": 1,
+            "unit": "un",
+            "kcal": 120,
+            "prot": 1.5,
+            "carb": 30.8,
+            "fat": 0.4,
+            "shopKey": "banana"
+          }
+        ]
+      },
+      {
+        "id": "pre-14",
+        "name": "Macarrão com Frango ao Molho",
+        "desc": "Alto carbo, alto proteína — o melhor combustível pré-treino",
+        "ingredients": [
+          {
+            "food": "Macarrão (peso cru)",
+            "qty": 70,
+            "unit": "g",
+            "kcal": 243,
+            "prot": 8.2,
+            "carb": 48.3,
+            "fat": 1.1,
+            "shopKey": "macarrao"
+          },
+          {
+            "food": "Frango desfiado",
+            "qty": 135,
+            "unit": "g",
+            "kcal": 223,
+            "prot": 41.9,
+            "carb": 0,
+            "fat": 4.9,
+            "shopKey": "frango"
+          },
+          {
+            "food": "Molho de tomate",
+            "qty": 80,
+            "unit": "g",
+            "kcal": 20,
+            "prot": 0.8,
+            "carb": 4,
+            "fat": 0.2,
+            "shopKey": "vegetais_base"
+          }
+        ]
+      },
+      {
+        "id": "pre-15",
+        "name": "Batata Doce com Ovo Mexido e Queijo",
+        "desc": "Carbo lento + proteína + gordura — concentração e resistência",
+        "ingredients": [
+          {
+            "food": "Batata-doce cozida",
+            "qty": 203,
+            "unit": "g",
+            "kcal": 174,
+            "prot": 3.2,
+            "carb": 40.5,
+            "fat": 0.3,
+            "shopKey": "batata_doce"
+          },
+          {
+            "food": "Ovos mexidos",
+            "qty": 3,
+            "unit": "un",
+            "kcal": 194,
+            "prot": 16.7,
+            "carb": 0.9,
+            "fat": 13,
+            "shopKey": "ovos"
+          },
+          {
+            "food": "Queijo Minas/Frescal",
+            "qty": 30,
+            "unit": "g",
+            "kcal": 80,
+            "prot": 5.4,
+            "carb": 0.5,
+            "fat": 6.3,
+            "shopKey": "queijo_minas"
           }
         ]
       }
@@ -1558,6 +2804,295 @@ const MEALS = [
             "shopKey": "vegetais_base"
           }
         ]
+      },
+      {
+        "id": "jantar-9",
+        "name": "Frango ao Molho de Tomate com Mandioca",
+        "desc": "A mandioca que você curtiu, agora com molho e frango molhado",
+        "ingredients": [
+          {
+            "food": "Frango desfiado",
+            "qty": 203,
+            "unit": "g",
+            "kcal": 335,
+            "prot": 62.8,
+            "carb": 0,
+            "fat": 7.3,
+            "shopKey": "frango"
+          },
+          {
+            "food": "Mandioca cozida",
+            "qty": 203,
+            "unit": "g",
+            "kcal": 257,
+            "prot": 2,
+            "carb": 60.8,
+            "fat": 0.4,
+            "shopKey": "mandioca"
+          },
+          {
+            "food": "Tomate e Pimentão",
+            "qty": 108,
+            "unit": "g",
+            "kcal": 27,
+            "prot": 1.1,
+            "carb": 5.4,
+            "fat": 0.3,
+            "shopKey": "vegetais_base"
+          }
+        ]
+      },
+      {
+        "id": "jantar-10",
+        "name": "Sobrecoxa Assada com Batata Inglesa e Couve",
+        "desc": "Frango suculento com batata — conforto e proteína na medida",
+        "ingredients": [
+          {
+            "food": "Sobrecoxa assada",
+            "qty": 203,
+            "unit": "g",
+            "kcal": 338,
+            "prot": 44.6,
+            "carb": 0,
+            "fat": 16.2,
+            "shopKey": "sobrecoxa"
+          },
+          {
+            "food": "Batata-inglesa",
+            "qty": 270,
+            "unit": "g",
+            "kcal": 232,
+            "prot": 5.4,
+            "carb": 54,
+            "fat": 0.3,
+            "shopKey": "batata_inglesa"
+          },
+          {
+            "food": "Couve refogada",
+            "qty": 108,
+            "unit": "g",
+            "kcal": 41,
+            "prot": 2.7,
+            "carb": 5.4,
+            "fat": 0.7,
+            "shopKey": "couve"
+          }
+        ]
+      },
+      {
+        "id": "jantar-11",
+        "name": "Acém Ensopado com Arroz e Abóbora",
+        "desc": "Caldinho de acém com arroz — reposição máxima pós-treino",
+        "ingredients": [
+          {
+            "food": "Carne Moída (Acém)",
+            "qty": 203,
+            "unit": "g",
+            "kcal": 385,
+            "prot": 50,
+            "carb": 0,
+            "fat": 20.3,
+            "shopKey": "acem_moido"
+          },
+          {
+            "food": "Arroz Branco",
+            "qty": 176,
+            "unit": "g",
+            "kcal": 228,
+            "prot": 4.3,
+            "carb": 49.1,
+            "fat": 0.3,
+            "shopKey": "arroz_branco"
+          },
+          {
+            "food": "Abóbora e Quiabo",
+            "qty": 135,
+            "unit": "g",
+            "kcal": 47,
+            "prot": 1.6,
+            "carb": 8.1,
+            "fat": 0.4,
+            "shopKey": "legumes_amarelos"
+          },
+          {
+            "food": "Feijão",
+            "qty": 108,
+            "unit": "g",
+            "kcal": 83,
+            "prot": 5.6,
+            "carb": 14.7,
+            "fat": 0.5,
+            "shopKey": "feijao"
+          }
+        ]
+      },
+      {
+        "id": "jantar-12",
+        "name": "Tilápia com Macarrão e Molho de Tomate",
+        "desc": "Peixe magro com macarrão — combo incomum e altamente proteico",
+        "ingredients": [
+          {
+            "food": "Tilápia grelhada",
+            "qty": 270,
+            "unit": "g",
+            "kcal": 346,
+            "prot": 70.2,
+            "carb": 0,
+            "fat": 6.5,
+            "shopKey": "tilapia"
+          },
+          {
+            "food": "Macarrão (peso cru)",
+            "qty": 80,
+            "unit": "g",
+            "kcal": 277,
+            "prot": 9.4,
+            "carb": 55.2,
+            "fat": 1.2,
+            "shopKey": "macarrao"
+          },
+          {
+            "food": "Molho de tomate",
+            "qty": 108,
+            "unit": "g",
+            "kcal": 27,
+            "prot": 1.1,
+            "carb": 5.4,
+            "fat": 0.3,
+            "shopKey": "vegetais_base"
+          }
+        ]
+      },
+      {
+        "id": "jantar-13",
+        "name": "Lombo Suíno com Mandioca e Abóbora",
+        "desc": "Lombo que você não curtiu com mingau — agora com mandioca e abóbora",
+        "ingredients": [
+          {
+            "food": "Lombo suíno iscas",
+            "qty": 203,
+            "unit": "g",
+            "kcal": 297,
+            "prot": 51.3,
+            "carb": 0,
+            "fat": 9.5,
+            "shopKey": "lombo_suino"
+          },
+          {
+            "food": "Mandioca cozida",
+            "qty": 135,
+            "unit": "g",
+            "kcal": 171,
+            "prot": 1.4,
+            "carb": 40.5,
+            "fat": 0.3,
+            "shopKey": "mandioca"
+          },
+          {
+            "food": "Abóbora e Quiabo",
+            "qty": 135,
+            "unit": "g",
+            "kcal": 51,
+            "prot": 1.6,
+            "carb": 9,
+            "fat": 0.5,
+            "shopKey": "legumes_amarelos"
+          },
+          {
+            "food": "Feijão",
+            "qty": 108,
+            "unit": "g",
+            "kcal": 83,
+            "prot": 5.6,
+            "carb": 14.7,
+            "fat": 0.5,
+            "shopKey": "feijao"
+          }
+        ]
+      },
+      {
+        "id": "jantar-14",
+        "name": "Frango Desfiado com Arroz, Cenoura e Couve",
+        "desc": "Refogado colorido — vitamina A e ferro no prato",
+        "ingredients": [
+          {
+            "food": "Frango desfiado",
+            "qty": 203,
+            "unit": "g",
+            "kcal": 335,
+            "prot": 62.8,
+            "carb": 0,
+            "fat": 7.3,
+            "shopKey": "frango"
+          },
+          {
+            "food": "Arroz Branco",
+            "qty": 176,
+            "unit": "g",
+            "kcal": 228,
+            "prot": 4.3,
+            "carb": 49.1,
+            "fat": 0.3,
+            "shopKey": "arroz_branco"
+          },
+          {
+            "food": "Feijão",
+            "qty": 108,
+            "unit": "g",
+            "kcal": 83,
+            "prot": 5.6,
+            "carb": 14.7,
+            "fat": 0.5,
+            "shopKey": "feijao"
+          },
+          {
+            "food": "Couve e Cenoura",
+            "qty": 80,
+            "unit": "g",
+            "kcal": 30,
+            "prot": 1.5,
+            "carb": 4.8,
+            "fat": 0.4,
+            "shopKey": "couve"
+          }
+        ]
+      },
+      {
+        "id": "jantar-15",
+        "name": "Sobrecoxa com Macarrão e Molho de Tomate",
+        "desc": "Frango gordinho com macarrão — jantar de reposição sem segredo",
+        "ingredients": [
+          {
+            "food": "Sobrecoxa assada",
+            "qty": 203,
+            "unit": "g",
+            "kcal": 338,
+            "prot": 44.6,
+            "carb": 0,
+            "fat": 16.2,
+            "shopKey": "sobrecoxa"
+          },
+          {
+            "food": "Macarrão (peso cru)",
+            "qty": 80,
+            "unit": "g",
+            "kcal": 277,
+            "prot": 9.4,
+            "carb": 55.2,
+            "fat": 1.2,
+            "shopKey": "macarrao"
+          },
+          {
+            "food": "Molho de tomate",
+            "qty": 108,
+            "unit": "g",
+            "kcal": 27,
+            "prot": 1.1,
+            "carb": 5.4,
+            "fat": 0.3,
+            "shopKey": "vegetais_base"
+          }
+        ]
       }
     ]
   },
@@ -1650,28 +3185,38 @@ const MEALS = [
       },
       {
         "id": "ceia-4",
-        "name": "Mingau Relaxante",
-        "desc": "Leite e aveia em dosagem branda",
+        "name": "Iogurte Natural com Morango e Mel",
+        "desc": "Doce e cremoso — o que faltava pro iogurte ficar gostoso",
         "ingredients": [
           {
-            "food": "Leite",
-            "qty": 203,
-            "unit": "ml",
-            "kcal": 101,
-            "prot": 6.5,
-            "carb": 9.7,
-            "fat": 4.1,
-            "shopKey": "leite"
+            "food": "Iogurte Natural Light",
+            "qty": 200,
+            "unit": "g",
+            "kcal": 117,
+            "prot": 8,
+            "carb": 8.8,
+            "fat": 5.3,
+            "shopKey": "iogurte"
           },
           {
-            "food": "Aveia em flocos",
-            "qty": 27,
+            "food": "Morango fresco",
+            "qty": 80,
             "unit": "g",
-            "kcal": 105,
-            "prot": 3.5,
-            "carb": 18.1,
-            "fat": 1.9,
-            "shopKey": "aveia"
+            "kcal": 32,
+            "prot": 0.8,
+            "carb": 7.2,
+            "fat": 0.3,
+            "shopKey": "frutas_vermelhas"
+          },
+          {
+            "food": "Mel",
+            "qty": 10,
+            "unit": "g",
+            "kcal": 29,
+            "prot": 0,
+            "carb": 7.9,
+            "fat": 0,
+            "shopKey": "mel"
           }
         ]
       },
@@ -1772,11 +3317,279 @@ const MEALS = [
             "shopKey": "pasta_amendoim"
           }
         ]
+      },
+      {
+        "id": "ceia-9",
+        "name": "Granola com Iogurte e Morango",
+        "desc": "Terminar o dia com doce natural e leve",
+        "ingredients": [
+          {
+            "food": "Granola",
+            "qty": 30,
+            "unit": "g",
+            "kcal": 135,
+            "prot": 3,
+            "carb": 20.9,
+            "fat": 4.5,
+            "shopKey": "granola"
+          },
+          {
+            "food": "Iogurte Natural Light",
+            "qty": 150,
+            "unit": "g",
+            "kcal": 88,
+            "prot": 6,
+            "carb": 6.6,
+            "fat": 4,
+            "shopKey": "iogurte"
+          },
+          {
+            "food": "Morango fresco",
+            "qty": 80,
+            "unit": "g",
+            "kcal": 32,
+            "prot": 0.8,
+            "carb": 7.2,
+            "fat": 0.3,
+            "shopKey": "frutas_vermelhas"
+          }
+        ]
+      },
+      {
+        "id": "ceia-10",
+        "name": "Banana com Pasta de Amendoim",
+        "desc": "Simples, rápido e muito gostoso antes de dormir",
+        "ingredients": [
+          {
+            "food": "Banana",
+            "qty": 1,
+            "unit": "un",
+            "kcal": 120,
+            "prot": 1.5,
+            "carb": 30.8,
+            "fat": 0.4,
+            "shopKey": "banana"
+          },
+          {
+            "food": "Pasta de amendoim",
+            "qty": 20,
+            "unit": "g",
+            "kcal": 127,
+            "prot": 5.1,
+            "carb": 4.1,
+            "fat": 10.1,
+            "shopKey": "pasta_amendoim"
+          }
+        ]
+      },
+      {
+        "id": "ceia-11",
+        "name": "Tapioca Doce com Queijo e Mel",
+        "desc": "Ceia quentinha e adocicada — o conforto noturno",
+        "ingredients": [
+          {
+            "food": "Goma de tapioca",
+            "qty": 40,
+            "unit": "g",
+            "kcal": 144,
+            "prot": 0,
+            "carb": 35.2,
+            "fat": 0,
+            "shopKey": "tapioca"
+          },
+          {
+            "food": "Queijo Minas/Frescal",
+            "qty": 40,
+            "unit": "g",
+            "kcal": 107,
+            "prot": 7.2,
+            "carb": 0.7,
+            "fat": 8.4,
+            "shopKey": "queijo_minas"
+          },
+          {
+            "food": "Mel",
+            "qty": 10,
+            "unit": "g",
+            "kcal": 29,
+            "prot": 0,
+            "carb": 7.9,
+            "fat": 0,
+            "shopKey": "mel"
+          }
+        ]
+      },
+      {
+        "id": "ceia-12",
+        "name": "Iogurte com Banana, Chia e Mel",
+        "desc": "Simples e doce — o iogurte que você gosta com chia pra melhorar o sono",
+        "ingredients": [
+          {
+            "food": "Iogurte Natural Light",
+            "qty": 200,
+            "unit": "g",
+            "kcal": 117,
+            "prot": 8,
+            "carb": 8.8,
+            "fat": 5.3,
+            "shopKey": "iogurte"
+          },
+          {
+            "food": "Banana",
+            "qty": 1,
+            "unit": "un",
+            "kcal": 120,
+            "prot": 1.5,
+            "carb": 30.8,
+            "fat": 0.4,
+            "shopKey": "banana"
+          },
+          {
+            "food": "Mel",
+            "qty": 10,
+            "unit": "g",
+            "kcal": 29,
+            "prot": 0,
+            "carb": 7.9,
+            "fat": 0,
+            "shopKey": "mel"
+          },
+          {
+            "food": "Semente de Chia",
+            "qty": 14,
+            "unit": "g",
+            "kcal": 68,
+            "prot": 2.3,
+            "carb": 5.7,
+            "fat": 4.1,
+            "shopKey": "chia"
+          }
+        ]
+      },
+      {
+        "id": "ceia-13",
+        "name": "Queijo Frescal com Abacate e Mel",
+        "desc": "Low carb pra ceia — gordura boa que ajuda a dormir bem",
+        "ingredients": [
+          {
+            "food": "Queijo Minas/Frescal",
+            "qty": 60,
+            "unit": "g",
+            "kcal": 160,
+            "prot": 10.8,
+            "carb": 1.1,
+            "fat": 12.6,
+            "shopKey": "queijo_minas"
+          },
+          {
+            "food": "Abacate",
+            "qty": 60,
+            "unit": "g",
+            "kcal": 95,
+            "prot": 1.3,
+            "carb": 5,
+            "fat": 8.8,
+            "shopKey": "abacate"
+          },
+          {
+            "food": "Mel",
+            "qty": 10,
+            "unit": "g",
+            "kcal": 29,
+            "prot": 0,
+            "carb": 7.9,
+            "fat": 0,
+            "shopKey": "mel"
+          }
+        ]
+      },
+      {
+        "id": "ceia-14",
+        "name": "Leite com Aveia e Mel",
+        "desc": "Mingau que funciona — o segredo é o mel na medida certa",
+        "ingredients": [
+          {
+            "food": "Leite",
+            "qty": 270,
+            "unit": "ml",
+            "kcal": 135,
+            "prot": 8.6,
+            "carb": 13,
+            "fat": 5.4,
+            "shopKey": "leite"
+          },
+          {
+            "food": "Aveia em flocos",
+            "qty": 20,
+            "unit": "g",
+            "kcal": 78,
+            "prot": 2.6,
+            "carb": 13.4,
+            "fat": 1.4,
+            "shopKey": "aveia"
+          },
+          {
+            "food": "Mel",
+            "qty": 15,
+            "unit": "g",
+            "kcal": 43,
+            "prot": 0,
+            "carb": 11.5,
+            "fat": 0,
+            "shopKey": "mel"
+          }
+        ]
+      },
+      {
+        "id": "ceia-15",
+        "name": "Castanhas com Chia, Frutas Vermelhas e Queijo",
+        "desc": "Quarteto antiinflamatório — fecha o dia com potência e fibras",
+        "ingredients": [
+          {
+            "food": "Mix de Castanhas",
+            "qty": 30,
+            "unit": "g",
+            "kcal": 181,
+            "prot": 6,
+            "carb": 6,
+            "fat": 15.5,
+            "shopKey": "castanhas"
+          },
+          {
+            "food": "Morango/Amoras",
+            "qty": 100,
+            "unit": "g",
+            "kcal": 40,
+            "prot": 1,
+            "carb": 9,
+            "fat": 0.4,
+            "shopKey": "frutas_vermelhas"
+          },
+          {
+            "food": "Queijo Minas/Frescal",
+            "qty": 30,
+            "unit": "g",
+            "kcal": 80,
+            "prot": 5.4,
+            "carb": 0.5,
+            "fat": 6.3,
+            "shopKey": "queijo_minas"
+          },
+          {
+            "food": "Semente de Chia",
+            "qty": 14,
+            "unit": "g",
+            "kcal": 68,
+            "prot": 2.3,
+            "carb": 5.7,
+            "fat": 4.1,
+            "shopKey": "chia"
+          }
+        ]
       }
     ]
   }
 ];
-
 const SHOP_MAP = {
   "arroz_branco": {
     "name": "Arroz Branco",
