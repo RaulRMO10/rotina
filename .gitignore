@@ -3,3 +3,5 @@ node_modules/
 .env
 fatsecret_api_info.txt
 test_fatsecret.js
+# Script de migração com connection string/senha hardcoded — manter local
+_migrate_month.js

@@ -246,8 +246,23 @@ main { max-width: 900px; margin: 0 auto; padding: 0 24px 40px; }
 .section-sub { font-size: 14px; color: var(--text-dim); margin-bottom: 16px; }
 
 /* ===== WEEK TABS ===== */
+.month-tabs {
+    display: flex; gap: 6px; margin: 16px 0 4px; overflow-x: auto; padding-bottom: 2px;
+}
+.month-tab {
+    flex-shrink: 0; padding: 7px 16px; border: 1px solid var(--glass-border);
+    border-radius: 20px; background: var(--glass); color: var(--text-dim);
+    font-family: inherit; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.month-tab:hover { border-color: var(--accent); color: var(--text); }
+.month-tab.active {
+    background: var(--accent); border-color: var(--accent); color: #fff;
+    box-shadow: 0 2px 12px var(--accent-glow);
+}
+
 .week-tabs {
-    display: flex; gap: 6px; margin: 20px 0 12px;
+    display: flex; gap: 6px; margin: 12px 0 12px;
 }
 .week-tab {
     flex: 1; padding: 12px 8px; border: 1px solid var(--glass-border);

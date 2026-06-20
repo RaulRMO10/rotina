@@ -2,9 +2,21 @@
 const DAYS = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 const DAYS_FULL = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
 const WEEKS = ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'];
+// Meses disponíveis: idx = número do mês (5=Maio, 6=Junho, ...)
+const MONTHS = [
+  { idx: 5,  name: 'Maio' },
+  { idx: 6,  name: 'Junho' },
+  { idx: 7,  name: 'Julho' },
+  { idx: 8,  name: 'Agosto' },
+  { idx: 9,  name: 'Setembro' },
+  { idx: 10, name: 'Outubro' },
+  { idx: 11, name: 'Novembro' },
+  { idx: 12, name: 'Dezembro' },
+];
 
 const state = {
-  plan: {},        // weekIdx -> dayIdx -> mealId -> optionIdx
+  plan: {},        // monthIdx -> weekIdx -> dayIdx -> mealId -> optionIdx
+  activeMonth: 5,  // 5=Maio (mês atual de início)
   activeWeek: 0,
   activeDay: 0,
   expandedMeal: null,
@@ -12,11 +24,14 @@ const state = {
 };
 
 // Init defaults
-WEEKS.forEach((_, wi) => {
-  state.plan[wi] = {};
-  DAYS.forEach((_, di) => {
-    state.plan[wi][di] = {};
-    MEALS.forEach(m => { state.plan[wi][di][m.id] = 0; });
+MONTHS.forEach(({ idx: mi }) => {
+  state.plan[mi] = {};
+  WEEKS.forEach((_, wi) => {
+    state.plan[mi][wi] = {};
+    DAYS.forEach((_, di) => {
+      state.plan[mi][wi][di] = {};
+      MEALS.forEach(m => { state.plan[mi][wi][di][m.id] = 0; });
+    });
   });
 });
 
@@ -25,13 +40,19 @@ try {
   const saved = localStorage.getItem('rotinaState');
   if (saved) {
     const parsed = JSON.parse(saved);
-    if (parsed.plan) state.plan = parsed.plan;
+    // Migra formato antigo (sem dimensão de mês) para o novo
+    if (parsed.plan && !parsed.plan[5]) {
+      state.plan[5] = parsed.plan;
+    } else if (parsed.plan) {
+      state.plan = parsed.plan;
+    }
+    if (parsed.activeMonth) state.activeMonth = parsed.activeMonth;
     if (parsed.shoppingPeriod) state.shoppingPeriod = parsed.shoppingPeriod;
   }
 } catch(e) { console.error('Error loading state', e); }
 
 function saveState() {
-  localStorage.setItem('rotinaState', JSON.stringify(state));
+  localStorage.setItem('rotinaState', JSON.stringify({ plan: state.plan, activeMonth: state.activeMonth, shoppingPeriod: state.shoppingPeriod }));
   if (window.DB) {
     showSync();
     DB.debouncedSync(state.plan);
@@ -49,7 +70,7 @@ function sumMacros(ingredients) {
 function getDayTotals(wi, di) {
   let t = { kcal: 0, prot: 0, carb: 0, fat: 0 };
   MEALS.forEach(m => {
-    const opt = m.options[state.plan[wi][di][m.id]];
+    const opt = m.options[state.plan[state.activeMonth][wi][di][m.id]];
     const mc = sumMacros(opt.ingredients);
     t.kcal += mc.kcal; t.prot += mc.prot; t.carb += mc.carb; t.fat += mc.fat;
   });
@@ -103,16 +124,37 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
 function renderMeals() {
   const section = document.getElementById('meals');
   section.innerHTML = `
+    <div class="month-tabs" id="month-tabs"></div>
     <div class="week-tabs" id="week-tabs"></div>
     <div class="week-overview" id="week-overview"></div>
     <div class="day-tabs" id="day-tabs"></div>
     <div class="day-totals-bar" id="day-totals-bar"></div>
     <div class="day-meals" id="day-meals"></div>
   `;
+  renderMonthTabs();
   renderWeekTabs();
   renderWeekOverview();
   renderDayTabs();
   renderDayDetail();
+}
+
+function renderMonthTabs() {
+  const el = document.getElementById('month-tabs');
+  el.innerHTML = MONTHS.map(m =>
+    `<button class="month-tab ${m.idx === state.activeMonth ? 'active' : ''}" data-month="${m.idx}">
+      ${m.name}
+    </button>`
+  ).join('');
+  el.querySelectorAll('.month-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.activeMonth = parseInt(btn.dataset.month);
+      state.activeWeek = 0;
+      state.activeDay = 0;
+      state.expandedMeal = null;
+      saveState();
+      renderMeals();
+    });
+  });
 }
 
 function renderWeekTabs() {
@@ -141,7 +183,7 @@ function renderWeekOverview() {
 
   const mealRows = MEALS.map(m => {
     const cells = DAYS.map((_, di) => {
-      const optIdx = state.plan[wi][di][m.id];
+      const optIdx = state.plan[state.activeMonth][wi][di][m.id];
       const opt = m.options[optIdx];
       const macros = sumMacros(opt.ingredients);
       return `<td class="wo-cell ${di === state.activeDay ? 'active' : ''}" data-day="${di}" data-meal="${m.id}">
@@ -182,7 +224,7 @@ function renderWeekOverview() {
     DAYS.forEach((d, di) => {
       txt += `*— ${DAYS_FULL[di].toUpperCase()} —*\n`;
       MEALS.forEach(m => {
-        const opt = m.options[state.plan[wi][di][m.id]];
+        const opt = m.options[state.plan[state.activeMonth][wi][di][m.id]];
         txt += `${m.icon} *${m.time} | ${m.name}*\n`;
         txt += `👉 ${opt.name}\n`;
         opt.ingredients.forEach(rawIng => {
@@ -229,7 +271,7 @@ function analyzeWeekPrep(wi) {
   const usages = [];
   DAYS.forEach((dName, di) => {
     MEALS.forEach(meal => {
-      const optIdx = state.plan[wi][di][meal.id];
+      const optIdx = state.plan[state.activeMonth][wi][di][meal.id];
       const opt = meal.options[optIdx];
       opt.ingredients.forEach(ing => {
         usages.push({
@@ -341,7 +383,7 @@ function renderPrepTab() {
     const seenOpts = new Set();
     DAYS.forEach((_, di) => {
       MEALS.forEach(meal => {
-        const optIdx = state.plan[wi][di][meal.id];
+        const optIdx = state.plan[state.activeMonth][wi][di][meal.id];
         const opt = meal.options[optIdx];
         if (seenOpts.has(opt.id)) return;
         seenOpts.add(opt.id);
@@ -364,7 +406,7 @@ function renderPrepTab() {
           recipe = { prepType, label, steps };
         }
         let usedDays = [];
-        DAYS.forEach((d, d2) => { if (state.plan[wi][d2][meal.id] === optIdx) usedDays.push(d); });
+        DAYS.forEach((d, d2) => { if (state.plan[state.activeMonth][wi][d2][meal.id] === optIdx) usedDays.push(d); });
         selectedMeals.push({ optId: opt.id, mealName: meal.name, mealIcon: meal.icon, mealTime: meal.time,
           optName: opt.name, days: usedDays, ...recipe });
       });
@@ -512,7 +554,7 @@ function renderDayDetail() {
   `;
 
   el.innerHTML = MEALS.map(meal => {
-    const optIdx = state.plan[wi][di][meal.id];
+    const optIdx = state.plan[state.activeMonth][wi][di][meal.id];
     const opt = meal.options[optIdx];
     const macros = sumMacros(opt.ingredients);
     const isExpanded = state.expandedMeal === meal.id;
@@ -602,7 +644,7 @@ function renderDayDetail() {
   totalsBar.querySelector('.copy-day-week').addEventListener('click', () => {
     const selectedDays = getSelectedDaysBlock(totalsBar);
     selectedDays.forEach(d => {
-      MEALS.forEach(meal => { state.plan[wi][d][meal.id] = state.plan[wi][di][meal.id]; });
+      MEALS.forEach(meal => { state.plan[state.activeMonth][wi][d][meal.id] = state.plan[state.activeMonth][wi][di][meal.id]; });
     });
     saveState();
     renderWeekOverview(); renderDayTabs(); renderDayDetail(); updateHeaderMacros();
@@ -612,7 +654,7 @@ function renderDayDetail() {
     const selectedDays = getSelectedDaysBlock(totalsBar);
     WEEKS.forEach((_, w) => {
       selectedDays.forEach(d => {
-        MEALS.forEach(meal => { state.plan[w][d][meal.id] = state.plan[wi][di][meal.id]; });
+        MEALS.forEach(meal => { state.plan[state.activeMonth][w][d][meal.id] = state.plan[state.activeMonth][wi][di][meal.id]; });
       });
     });
     saveState();
@@ -631,7 +673,7 @@ function renderDayDetail() {
   // Bind option selection
   el.querySelectorAll('.option-card').forEach(card => {
     card.addEventListener('click', () => {
-      state.plan[wi][di][parseInt(card.dataset.mealId)] = parseInt(card.dataset.opt);
+      state.plan[state.activeMonth][wi][di][parseInt(card.dataset.mealId)] = parseInt(card.dataset.opt);
       saveState();
       renderWeekOverview(); renderDayTabs(); renderDayDetail(); updateHeaderMacros();
     });
@@ -651,7 +693,7 @@ function renderDayDetail() {
       const mid = parseInt(btn.dataset.mealId), oi = parseInt(btn.dataset.opt);
       const slot = btn.closest('.meal-slot');
       const selectedDays = Array.from(slot.querySelectorAll('.copy-day-cbx:checked')).map(cb => parseInt(cb.value));
-      selectedDays.forEach(d => { state.plan[wi][d][mid] = oi; });
+      selectedDays.forEach(d => { state.plan[state.activeMonth][wi][d][mid] = oi; });
       saveState();
       renderWeekOverview(); renderDayTabs(); renderDayDetail(); updateHeaderMacros();
     });
@@ -663,7 +705,7 @@ function renderDayDetail() {
       const slot = btn.closest('.meal-slot');
       const selectedDays = Array.from(slot.querySelectorAll('.copy-day-cbx:checked')).map(cb => parseInt(cb.value));
       WEEKS.forEach((_, w) => {
-        selectedDays.forEach(d => { state.plan[w][d][mid] = oi; });
+        selectedDays.forEach(d => { state.plan[state.activeMonth][w][d][mid] = oi; });
       });
       saveState();
       renderWeekOverview(); renderDayTabs(); renderDayDetail(); updateHeaderMacros();
@@ -687,7 +729,7 @@ function computeShoppingList() {
 
   targetWeeks.forEach(wi => DAYS.forEach((_, di) => {
     MEALS.forEach(meal => {
-      const opt = meal.options[state.plan[wi][di][meal.id]];
+      const opt = meal.options[state.plan[state.activeMonth][wi][di][meal.id]];
       opt.ingredients.forEach(ing => {
         if (!needs[ing.shopKey]) needs[ing.shopKey] = { qty: 0, unit: ing.unit };
         let addQty = ing.qty;
@@ -745,7 +787,7 @@ function renderShopping() {
     const wName = WEEKS[wi];
     const rows = MEALS.map(m => {
       const cells = DAYS.map((_, di) => {
-        const opt = m.options[state.plan[wi][di][m.id]];
+        const opt = m.options[state.plan[state.activeMonth][wi][di][m.id]];
         return `<td class="ws-cell">${opt.name}</td>`;
       }).join('');
       return `<tr><td class="ws-label">${m.icon}</td>${cells}</tr>`;
@@ -997,9 +1039,10 @@ if (window.DB) {
 
     let changed = false;
     rows.forEach(row => {
-      if (state.plan[row.week_idx]?.[row.day_idx] !== undefined) {
-        if (state.plan[row.week_idx][row.day_idx][row.meal_id] !== row.option_idx) {
-          state.plan[row.week_idx][row.day_idx][row.meal_id] = row.option_idx;
+      const mi = row.month_idx ?? 5;
+      if (state.plan[mi]?.[row.week_idx]?.[row.day_idx] !== undefined) {
+        if (state.plan[mi][row.week_idx][row.day_idx][row.meal_id] !== row.option_idx) {
+          state.plan[mi][row.week_idx][row.day_idx][row.meal_id] = row.option_idx;
           changed = true;
         }
       }

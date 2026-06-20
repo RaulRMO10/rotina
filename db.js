@@ -47,7 +47,7 @@ const DB = {
 
     const { data, error } = await _sb
       .from('meal_plan')
-      .select('week_idx, day_idx, meal_id, option_idx')
+      .select('month_idx, week_idx, day_idx, meal_id, option_idx')
       .eq('user_id', user.id);
 
     if (error) { console.error('[DB] loadPlan:', error.message); return null; }
@@ -59,16 +59,19 @@ const DB = {
     if (!user) return;
 
     const rows = [];
-    Object.entries(plan).forEach(([wi, days]) => {
-      Object.entries(days).forEach(([di, meals]) => {
-        Object.entries(meals).forEach(([mealId, optIdx]) => {
-          rows.push({
-            user_id: user.id,
-            week_idx: parseInt(wi),
-            day_idx: parseInt(di),
-            meal_id: parseInt(mealId),
-            option_idx: optIdx,
-            updated_at: new Date().toISOString()
+    Object.entries(plan).forEach(([mi, weeks]) => {
+      Object.entries(weeks).forEach(([wi, days]) => {
+        Object.entries(days).forEach(([di, meals]) => {
+          Object.entries(meals).forEach(([mealId, optIdx]) => {
+            rows.push({
+              user_id: user.id,
+              month_idx: parseInt(mi),
+              week_idx: parseInt(wi),
+              day_idx: parseInt(di),
+              meal_id: parseInt(mealId),
+              option_idx: optIdx,
+              updated_at: new Date().toISOString()
+            });
           });
         });
       });
@@ -76,7 +79,7 @@ const DB = {
 
     const { error } = await _sb
       .from('meal_plan')
-      .upsert(rows, { onConflict: 'user_id,week_idx,day_idx,meal_id' });
+      .upsert(rows, { onConflict: 'user_id,month_idx,week_idx,day_idx,meal_id' });
 
     if (error) console.error('[DB] syncPlan:', error.message);
     else console.log('[DB] Plano sincronizado ✓');
