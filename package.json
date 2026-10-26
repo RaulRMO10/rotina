@@ -1,7 +1,6 @@
 {
   "name": "rotina",
   "private": true,
-  "engines": { "node": ">=20" },
   "dependencies": {
     "@anthropic-ai/sdk": "1.3.0"
   }
