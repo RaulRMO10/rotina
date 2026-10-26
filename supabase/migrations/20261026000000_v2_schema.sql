@@ -102,33 +102,45 @@ alter table public.weekly_notes   enable row level security;
 alter table public.weekly_reports enable row level security;
 
 -- raw_ingest: o dono só lê
+drop policy if exists "raw_ingest_select" on public.raw_ingest;
 create policy "raw_ingest_select" on public.raw_ingest
   for select using (auth.uid() = user_id);
 
 -- daily_metrics / workouts / weekly_reports: preenchidas pelo servidor, dono só lê
+drop policy if exists "daily_metrics_select" on public.daily_metrics;
 create policy "daily_metrics_select" on public.daily_metrics
   for select using (auth.uid() = user_id);
+drop policy if exists "workouts_select" on public.workouts;
 create policy "workouts_select" on public.workouts
   for select using (auth.uid() = user_id);
+drop policy if exists "weekly_reports_select" on public.weekly_reports;
 create policy "weekly_reports_select" on public.weekly_reports
   for select using (auth.uid() = user_id);
 
 -- measurements / weekly_notes: entrada manual pelo formulário semanal
+drop policy if exists "measurements_select" on public.measurements;
 create policy "measurements_select" on public.measurements
   for select using (auth.uid() = user_id);
+drop policy if exists "measurements_insert" on public.measurements;
 create policy "measurements_insert" on public.measurements
   for insert with check (auth.uid() = user_id);
+drop policy if exists "measurements_update" on public.measurements;
 create policy "measurements_update" on public.measurements
   for update using (auth.uid() = user_id);
+drop policy if exists "measurements_delete" on public.measurements;
 create policy "measurements_delete" on public.measurements
   for delete using (auth.uid() = user_id);
 
+drop policy if exists "weekly_notes_select" on public.weekly_notes;
 create policy "weekly_notes_select" on public.weekly_notes
   for select using (auth.uid() = user_id);
+drop policy if exists "weekly_notes_insert" on public.weekly_notes;
 create policy "weekly_notes_insert" on public.weekly_notes
   for insert with check (auth.uid() = user_id);
+drop policy if exists "weekly_notes_update" on public.weekly_notes;
 create policy "weekly_notes_update" on public.weekly_notes
   for update using (auth.uid() = user_id);
+drop policy if exists "weekly_notes_delete" on public.weekly_notes;
 create policy "weekly_notes_delete" on public.weekly_notes
   for delete using (auth.uid() = user_id);
 
@@ -138,9 +150,12 @@ insert into storage.buckets (id, name, public)
 values ('photos', 'photos', false)
 on conflict (id) do nothing;
 
+drop policy if exists "photos_select" on storage.objects;
 create policy "photos_select" on storage.objects
   for select using (bucket_id = 'photos' and (storage.foldername(name))[1] = auth.uid()::text);
+drop policy if exists "photos_insert" on storage.objects;
 create policy "photos_insert" on storage.objects
   for insert with check (bucket_id = 'photos' and (storage.foldername(name))[1] = auth.uid()::text);
+drop policy if exists "photos_delete" on storage.objects;
 create policy "photos_delete" on storage.objects
   for delete using (bucket_id = 'photos' and (storage.foldername(name))[1] = auth.uid()::text);
