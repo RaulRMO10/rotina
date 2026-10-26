@@ -1,18 +1,14 @@
-// POST /api/ingest — recebe o payload do HC Webhook e grava bruto em raw_ingest.
-// Fase 0/1: sem parse. O parser para daily_metrics/workouts vem depois de
-// inspecionar os dados reais.
+// POST /api/ingest — recebe o payload do HC Webhook.
+// 1) grava o JSON bruto em raw_ingest (sempre, para poder reprocessar);
+// 2) normaliza e atualiza hc_records / daily_metrics / workouts.
+// Se o passo 2 falhar, responde 200 mesmo assim: o bruto está salvo e
+// /api/reprocess refaz depois. Assim o app não reenvia em loop.
 //
 // Env (Vercel): INGEST_TOKEN, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, INGEST_USER_ID
 
-const crypto = require('crypto');
-
-function tokenOk(received) {
-  const expected = process.env.INGEST_TOKEN;
-  if (!expected || typeof received !== 'string') return false;
-  const a = crypto.createHash('sha256').update(received).digest();
-  const b = crypto.createHash('sha256').update(expected).digest();
-  return crypto.timingSafeEqual(a, b);
-}
+const { safeEqual } = require('./_lib/auth');
+const { env, rest } = require('./_lib/db');
+const { processPayload } = require('./_lib/process');
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
@@ -20,37 +16,33 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: 'method not allowed' });
   }
 
-  if (!tokenOk(req.headers['x-api-key'])) {
+  if (!safeEqual(req.headers['x-api-key'], process.env.INGEST_TOKEN)) {
     return res.status(401).json({ error: 'unauthorized' });
   }
 
   const payload = req.body;
-  if (!payload || typeof payload !== 'object') {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
     return res.status(400).json({ error: 'expected JSON body' });
   }
 
-  const { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, INGEST_USER_ID } = process.env;
-  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY || !INGEST_USER_ID) {
-    return res.status(500).json({ error: 'server not configured' });
-  }
-
-  const r = await fetch(`${SUPABASE_URL}/rest/v1/raw_ingest`, {
-    method: 'POST',
-    headers: {
-      apikey: SUPABASE_SERVICE_ROLE_KEY,
-      Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
-      'Content-Type': 'application/json',
-      Prefer: 'return=representation',
-    },
-    body: JSON.stringify({ user_id: INGEST_USER_ID, payload }),
-  });
-
-  if (!r.ok) {
-    console.error('raw_ingest insert failed', r.status, await r.text());
+  let row;
+  try {
+    [row] = await rest('raw_ingest', {
+      method: 'POST',
+      body: { user_id: env().userId, payload },
+      prefer: 'return=representation',
+    });
+  } catch (err) {
+    console.error('raw_ingest insert failed', err.message);
     return res.status(502).json({ error: 'storage failed' });
   }
 
-  const [row] = await r.json();
   const types = Object.keys(payload).filter((k) => Array.isArray(payload[k]));
-  return res.status(200).json({ ok: true, id: row.id, types });
+  try {
+    const parsed = await processPayload(row.id, payload);
+    return res.status(200).json({ ok: true, id: row.id, types, parsed });
+  } catch (err) {
+    console.error('parse failed for raw_ingest', row.id, err.message);
+    return res.status(200).json({ ok: true, id: row.id, types, parsed: null });
+  }
 };
