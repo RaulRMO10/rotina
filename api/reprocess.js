@@ -28,8 +28,8 @@ module.exports = async (req, res) => {
   const failed = [];
   for (const row of rows) {
     try {
-      await processPayload(row.id, row.payload);
-      done.push(row.id);
+      const parsed = await processPayload(row.id, row.payload);
+      done.push({ id: row.id, ...parsed });
     } catch (err) {
       console.error('reprocess failed', row.id, err.message);
       failed.push({ id: row.id, error: err.message });
