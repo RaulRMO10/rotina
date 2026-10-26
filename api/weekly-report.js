@@ -1,7 +1,9 @@
-// GET /api/weekly-report — Vercel Cron (segunda de manhã) gera o resumo da
-// semana anterior com a API do Claude e grava em weekly_reports.
-// Auth: header Authorization: Bearer <CRON_SECRET> (a Vercel envia sozinha no cron).
-// ?week=YYYY-MM-DD (segunda) gera uma semana específica, para rodar à mão.
+// /api/weekly-report — gera o resumo semanal com a API do Claude e grava em weekly_reports.
+// GET  pelo Vercel Cron (segunda de manhã): semana anterior.
+//      Auth: Authorization: Bearer <CRON_SECRET> (a Vercel envia sozinha).
+// POST pelo botão do painel: semana atual (parcial).
+//      Auth: Authorization: Bearer <access token do Supabase> do dono dos dados.
+// ?week=YYYY-MM-DD gera uma semana específica.
 //
 // Env: CRON_SECRET, ANTHROPIC_API_KEY + as do Supabase (ver _lib/db.js)
 
@@ -24,7 +26,8 @@ Regras:
 - Se faltarem dados, diga em uma frase o que faltou, sem drama.
 - Termine com uma sugestão prática e pequena para a próxima semana.
 - Não faça diagnóstico médico nem recomendações de dieta específicas.
-- Leve em conta a nota da semana, se houver.`;
+- Leve em conta a nota da semana, se houver.
+- Se semana_em_andamento for true, diga que é um retrato parcial da semana até agora.`;
 
 // Data local (YYYY-MM-DD) de um instante no fuso do usuário.
 function localDay(date) {
@@ -93,18 +96,33 @@ async function buildWeek(userId, week) {
   };
 }
 
+// O token do Supabase pertence ao dono dos dados (INGEST_USER_ID)?
+async function isOwnerToken(token) {
+  if (!token) return false;
+  const { url, key, userId } = env();
+  const r = await fetch(`${url}/auth/v1/user`, { headers: { apikey: key, Authorization: `Bearer ${token}` } });
+  if (!r.ok) return false;
+  const user = await r.json();
+  return user?.id === userId;
+}
+
 module.exports = async (req, res) => {
-  if (!safeEqual((req.headers.authorization || '').replace(/^Bearer /, ''), process.env.CRON_SECRET)) {
-    return res.status(401).json({ error: 'unauthorized' });
-  }
+  const token = (req.headers.authorization || '').replace(/^Bearer /, '');
+  let manual;
+  if (req.method === 'GET' && safeEqual(token, process.env.CRON_SECRET)) manual = false;
+  else if (req.method === 'POST' && (await isOwnerToken(token))) manual = true;
+  else return res.status(401).json({ error: 'unauthorized' });
   if (!process.env.ANTHROPIC_API_KEY) return res.status(500).json({ error: 'ANTHROPIC_API_KEY not set' });
 
   const { userId } = env();
   const requested = typeof req.query.week === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(req.query.week) ? req.query.week : null;
-  // Padrão: a semana (seg–dom) que terminou antes da segunda atual.
-  const week = requested ? mondayOf(requested) : addDays(mondayOf(localDay(new Date())), -7);
+  const thisMonday = mondayOf(localDay(new Date()));
+  // Cron: a semana (seg–dom) que terminou. Botão: a semana atual, até hoje.
+  const week = requested ? mondayOf(requested) : manual ? thisMonday : addDays(thisMonday, -7);
 
   const data = await buildWeek(userId, week);
+  // A semana atual ainda não terminou: o resumo deve dizer que é parcial.
+  data.semana_em_andamento = week === thisMonday;
 
   const client = new Anthropic();
   let response;

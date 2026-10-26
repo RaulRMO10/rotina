@@ -8,7 +8,7 @@ Galaxy Watch7 → Samsung Health → Health Connect → HC Webhook (Android)
       → raw_ingest (payload bruto, sempre)
       → hc_records (1 linha por registro do HC; aplica edições e exclusões)
       → daily_metrics + workouts (recalculados por dia)
-  → painel estático (index.html) lê o Supabase com login + RLS
+  → painel React + Tailwind + Recharts (Vite, src/) lê o Supabase com login + RLS
   → Vercel Cron (segunda 08:17 BRT) → /api/weekly-report → Claude → weekly_reports
 ```
 
@@ -20,7 +20,8 @@ A v1 (dieta/macros, tag `v1-dieta`) está em `legacy/`.
 |---|---|---|
 | `POST /api/ingest` | `x-api-key: INGEST_TOKEN` | grava o bruto e processa |
 | `POST /api/reprocess` | `x-api-key: INGEST_TOKEN` | reprocessa `raw_ingest` pendente (`?all=1` = tudo, em lotes; continuar com `?after=<next_after>`) |
-| `GET /api/weekly-report` | `Authorization: Bearer CRON_SECRET` | gera o resumo da semana anterior (`?week=AAAA-MM-DD` para uma semana específica) |
+| `GET /api/weekly-report` | `Authorization: Bearer CRON_SECRET` | cron: resumo da semana anterior (`?week=AAAA-MM-DD` para uma específica) |
+| `POST /api/weekly-report` | `Authorization: Bearer <token do Supabase>` | botão "Gerar agora": resumo da semana atual |
 
 ## Regras de cálculo
 
@@ -29,6 +30,13 @@ A v1 (dieta/macros, tag `v1-dieta`) está em `legacy/`.
 - **Peso, % gordura, TMB, FC repouso:** último valor do dia. TMB vem em watts e é convertida para kcal/dia.
 - **Treinos:** FC média e kcal vêm dos registros de FC e calorias ativas dentro da janela do treino.
 - **Medidas:** `source = relogio | academia` são séries separadas e nunca se comparam.
+
+## Desenvolvimento
+
+```bash
+npm install
+npm run dev   # painel em http://localhost:5173 (as rotas /api só rodam na Vercel ou com `vercel dev`)
+```
 
 ## Setup
 
