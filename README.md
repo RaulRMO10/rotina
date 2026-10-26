@@ -22,6 +22,7 @@ A v1 (dieta/macros, tag `v1-dieta`) está em `legacy/`.
 | `POST /api/reprocess` | `x-api-key: INGEST_TOKEN` | reprocessa `raw_ingest` pendente (`?all=1` = tudo, em lotes; continuar com `?after=<next_after>`) |
 | `GET /api/weekly-report` | `Authorization: Bearer CRON_SECRET` | cron: resumo da semana anterior (`?week=AAAA-MM-DD` para uma específica) |
 | `POST /api/weekly-report` | `Authorization: Bearer <token do Supabase>` | botão "Gerar agora": resumo da semana atual |
+| `POST /api/photo-analysis` | `Authorization: Bearer <token do Supabase>` | IA analisa/compara 1–4 fotos do bucket `photos` |
 
 ## Regras de cálculo
 
@@ -29,7 +30,8 @@ A v1 (dieta/macros, tag `v1-dieta`) está em `legacy/`.
 - **Sono:** conta no dia em que você acorda; exclui estágios "acordado" e "fora da cama".
 - **Peso, % gordura, TMB, FC repouso:** último valor do dia. TMB vem em watts e é convertida para kcal/dia.
 - **Treinos:** FC média e kcal vêm dos registros de FC e calorias ativas dentro da janela do treino.
-- **Medidas:** `source = relogio | academia` são séries separadas e nunca se comparam.
+- **Medidas manuais:** `source = casa | academia | profissional`; cada fonte (e o relógio) é uma série própria e nunca se compara com outra.
+- **Painel:** período livre (semana, mês, tudo, datas) com setas; visões Resumo, Treinos, Corpo, Recuperação, Medidas e Fotos; só aparece o que tem dado no período.
 
 ## Desenvolvimento
 

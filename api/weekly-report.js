@@ -8,7 +8,7 @@
 // Env: CRON_SECRET, ANTHROPIC_API_KEY + as do Supabase (ver _lib/db.js)
 
 const Anthropic = require('@anthropic-ai/sdk');
-const { safeEqual } = require('./_lib/auth');
+const { safeEqual, isOwnerToken, bearer } = require('./_lib/auth');
 const { env, rest } = require('./_lib/db');
 
 const TZ = 'America/Sao_Paulo';
@@ -21,7 +21,7 @@ Regras:
 - Até 150 palavras, em texto corrido curto ou poucos tópicos. Sem títulos, sem markdown pesado.
 - Comece pela consistência de treino (treinos na semana vs. semanas anteriores).
 - Depois tendências: peso e % de gordura pela média da semana vs. a anterior, sono, passos, FC de repouso.
-- Medidas do relógio e da balança da academia são séries diferentes: nunca compare uma com a outra.
+- Relógio e cada fonte de medida (casa, academia, profissional) são séries diferentes: nunca compare uma com a outra, só cada uma com ela mesma.
 - Oscilações diárias de peso e bioimpedância são ruído; comente só a tendência da média.
 - Se faltarem dados, diga em uma frase o que faltou, sem drama.
 - Termine com uma sugestão prática e pequena para a próxima semana.
@@ -88,26 +88,18 @@ async function buildWeek(userId, week) {
     treinos_por_semana: workoutsByWeek,
     relogio_semana: summarize(metrics.filter((m) => inWeek(m.day, week))),
     relogio_semana_anterior: summarize(metrics.filter((m) => inWeek(m.day, prev))),
+    // fonte: casa | academia | profissional — séries separadas.
     medidas_ultimas_4_semanas: measurements.map((m) => ({
-      data: m.measured_on, fonte: m.source, cintura_cm: m.waist_cm, gordura_pct: m.body_fat_pct,
-      massa_muscular_kg: m.muscle_mass_kg, peso_kg: m.weight_kg,
+      data: m.measured_on, fonte: m.source, peso_kg: m.weight_kg, gordura_pct: m.body_fat_pct,
+      massa_muscular_kg: m.muscle_mass_kg, cintura_cm: m.waist_cm, quadril_cm: m.hip_cm,
+      peito_cm: m.chest_cm, braco_cm: m.arm_cm, coxa_cm: m.thigh_cm,
     })),
     nota_da_semana: notes[0]?.note ?? null,
   };
 }
 
-// O token do Supabase pertence ao dono dos dados (INGEST_USER_ID)?
-async function isOwnerToken(token) {
-  if (!token) return false;
-  const { url, key, userId } = env();
-  const r = await fetch(`${url}/auth/v1/user`, { headers: { apikey: key, Authorization: `Bearer ${token}` } });
-  if (!r.ok) return false;
-  const user = await r.json();
-  return user?.id === userId;
-}
-
 module.exports = async (req, res) => {
-  const token = (req.headers.authorization || '').replace(/^Bearer /, '');
+  const token = bearer(req);
   let manual;
   if (req.method === 'GET' && safeEqual(token, process.env.CRON_SECRET)) manual = false;
   else if (req.method === 'POST' && (await isOwnerToken(token))) manual = true;

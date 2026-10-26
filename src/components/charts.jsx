@@ -1,10 +1,16 @@
 import {
-  Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,
+  Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from 'recharts';
-import { longDate, shortDay } from '../lib/dates';
-import { Empty } from './ui';
+import { longDate, parseDay, shortDay } from '../lib/dates';
 
 const axis = { stroke: 'var(--axis)', fontSize: 11, tickLine: false, axisLine: false };
+const yTick = (v) => v.toLocaleString('pt-BR');
+const margin = { top: 6, right: 6, bottom: 0, left: 0 };
+
+// Períodos curtos: "seg 20". Longos: "20/10".
+export const dayTick = (len) => (len <= 14
+  ? (s) => `${parseDay(s).toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', '')} ${s.slice(8)}`
+  : shortDay);
 
 function TooltipBox({ active, payload, label, unit, labelFormat = longDate, digits = 1 }) {
   const rows = (payload || []).filter((p) => p.value != null);
@@ -16,7 +22,7 @@ function TooltipBox({ active, payload, label, unit, labelFormat = longDate, digi
         <div key={p.dataKey} className="flex items-center gap-2 text-zinc-900 dark:text-zinc-100">
           <span className="size-2 rounded-full" style={{ background: p.color }} />
           <span className="text-zinc-500 dark:text-zinc-400">{p.name}</span>
-          <span className="ml-auto font-semibold tabular-nums">
+          <span className="ml-auto pl-3 font-semibold tabular-nums">
             {Number(p.value).toLocaleString('pt-BR', { maximumFractionDigits: digits })} {unit}
           </span>
         </div>
@@ -25,53 +31,54 @@ function TooltipBox({ active, payload, label, unit, labelFormat = longDate, digi
   );
 }
 
-const has = (data, key) => data.some((d) => d[key] != null);
-
-// Pontos diários claros + média móvel de 7 dias.
-export function TrendChart({ data, dailyKey, maKey, unit, empty }) {
-  if (!has(data, dailyKey)) return <Empty>{empty}</Empty>;
+// Pontos diários; com período ≥ 14 dias, também a média móvel de 7 dias.
+export function TrendChart({ data, dailyKey, maKey, unit, showMa, len }) {
   return (
     <div className="h-56">
       <ResponsiveContainer>
-        <LineChart data={data} margin={{ top: 4, right: 4, bottom: 0, left: 0 }}>
+        <LineChart data={data} margin={margin}>
           <CartesianGrid vertical={false} stroke="var(--grid)" />
-          <XAxis dataKey="day" tickFormatter={shortDay} minTickGap={28} {...axis} />
-          <YAxis domain={['auto', 'auto']} width={52} tickFormatter={(v) => v.toLocaleString('pt-BR')} {...axis} />
+          <XAxis dataKey="day" tickFormatter={dayTick(len)} minTickGap={24} {...axis} />
+          <YAxis domain={['auto', 'auto']} width={52} tickFormatter={yTick} {...axis} />
           <Tooltip content={<TooltipBox unit={unit} />} cursor={{ stroke: 'var(--axis)', strokeDasharray: 3 }} />
-          <Line name="dia" dataKey={dailyKey} stroke="transparent" dot={{ r: 2.5, fill: 'var(--series-1-soft)', strokeWidth: 0 }} activeDot={{ r: 4 }} isAnimationActive={false} />
-          <Line name="média 7d" dataKey={maKey} stroke="var(--series-1)" strokeWidth={2} dot={false} connectNulls type="monotone" isAnimationActive={false} />
+          {showMa ? (
+            <>
+              <Line name="dia" dataKey={dailyKey} stroke="transparent" dot={{ r: 2.5, fill: 'var(--series-1-soft)', strokeWidth: 0 }} activeDot={{ r: 4 }} isAnimationActive={false} />
+              <Line name="média 7d" dataKey={maKey} stroke="var(--series-1)" strokeWidth={2} dot={false} connectNulls type="monotone" isAnimationActive={false} />
+            </>
+          ) : (
+            <Line name="dia" dataKey={dailyKey} stroke="var(--series-1)" strokeWidth={2} connectNulls dot={{ r: 3.5, fill: 'var(--series-1)', strokeWidth: 0 }} activeDot={{ r: 5 }} isAnimationActive={false} />
+          )}
         </LineChart>
       </ResponsiveContainer>
     </div>
   );
 }
 
-export function DailyBars({ data, dataKey, unit, name, empty, digits = 0 }) {
-  if (!has(data, dataKey)) return <Empty>{empty}</Empty>;
+export function DailyBars({ data, dataKey, unit, name, digits = 0, len }) {
   return (
     <div className="h-48">
       <ResponsiveContainer>
-        <BarChart data={data} margin={{ top: 4, right: 4, bottom: 0, left: 0 }}>
+        <BarChart data={data} margin={margin}>
           <CartesianGrid vertical={false} stroke="var(--grid)" />
-          <XAxis dataKey="day" tickFormatter={shortDay} minTickGap={28} {...axis} />
-          <YAxis width={52} tickFormatter={(v) => v.toLocaleString('pt-BR')} {...axis} />
+          <XAxis dataKey="day" tickFormatter={dayTick(len)} minTickGap={24} {...axis} />
+          <YAxis width={52} tickFormatter={yTick} {...axis} />
           <Tooltip content={<TooltipBox unit={unit} digits={digits} />} cursor={{ fill: 'var(--grid)', opacity: 0.5 }} />
-          <Bar name={name} dataKey={dataKey} fill="var(--series-1)" radius={[4, 4, 0, 0]} maxBarSize={18} isAnimationActive={false} />
+          <Bar name={name} dataKey={dataKey} fill="var(--series-1)" radius={[4, 4, 0, 0]} maxBarSize={28} isAnimationActive={false} />
         </BarChart>
       </ResponsiveContainer>
     </div>
   );
 }
 
-export function SimpleLine({ data, dataKey, unit, name, empty, height = 'h-48', xKey = 'day' }) {
-  if (!has(data, dataKey)) return <Empty className={height}>{empty}</Empty>;
+export function SimpleLine({ data, dataKey, unit, name, len, height = 'h-48' }) {
   return (
     <div className={height}>
       <ResponsiveContainer>
-        <LineChart data={data} margin={{ top: 8, right: 8, bottom: 0, left: 0 }}>
+        <LineChart data={data} margin={margin}>
           <CartesianGrid vertical={false} stroke="var(--grid)" />
-          <XAxis dataKey={xKey} tickFormatter={shortDay} minTickGap={28} {...axis} />
-          <YAxis domain={['auto', 'auto']} width={52} tickFormatter={(v) => v.toLocaleString('pt-BR')} {...axis} />
+          <XAxis dataKey="day" tickFormatter={dayTick(len)} minTickGap={24} {...axis} />
+          <YAxis domain={['auto', 'auto']} width={52} tickFormatter={yTick} {...axis} />
           <Tooltip content={<TooltipBox unit={unit} />} cursor={{ stroke: 'var(--axis)', strokeDasharray: 3 }} />
           <Line name={name} dataKey={dataKey} stroke="var(--series-1)" strokeWidth={2} connectNulls type="monotone" dot={{ r: 3, fill: 'var(--series-1)', strokeWidth: 0 }} activeDot={{ r: 5 }} isAnimationActive={false} />
         </LineChart>
@@ -80,23 +87,22 @@ export function SimpleLine({ data, dataKey, unit, name, empty, height = 'h-48', 
   );
 }
 
-// Treinos por semana: semana atual em destaque.
-export function WeeksChart({ weeks }) {
+// Treinos por dia ou por semana; o dia/semana atual em destaque.
+export function WorkoutBars({ buckets, len }) {
+  const isWeek = buckets.unit === 'week';
   return (
-    <div className="h-64">
+    <div className="h-48">
       <ResponsiveContainer>
-        <BarChart data={weeks} margin={{ top: 4, right: 4, bottom: 0, left: 0 }}>
+        <BarChart data={buckets.items} margin={margin}>
           <CartesianGrid vertical={false} stroke="var(--grid)" />
-          <XAxis dataKey="week" tickFormatter={shortDay} {...axis} />
+          <XAxis dataKey="key" tickFormatter={isWeek ? shortDay : dayTick(len)} minTickGap={16} {...axis} />
           <YAxis allowDecimals={false} width={52} {...axis} />
           <Tooltip
-            content={<TooltipBox unit="treinos" digits={0} labelFormat={(w) => `Semana de ${longDate(w)}`} />}
+            content={<TooltipBox unit="treinos" digits={0} labelFormat={(k) => (isWeek ? `Semana de ${longDate(k)}` : longDate(k))} />}
             cursor={{ fill: 'var(--grid)', opacity: 0.5 }}
           />
           <Bar name="treinos" dataKey="count" radius={[6, 6, 0, 0]} maxBarSize={36} isAnimationActive={false}>
-            {weeks.map((w) => (
-              <Cell key={w.week} fill={w.current ? 'var(--series-1)' : 'var(--series-1-soft)'} />
-            ))}
+            {buckets.items.map((b) => <Cell key={b.key} fill={b.current ? 'var(--series-1)' : 'var(--series-1-soft)'} />)}
           </Bar>
         </BarChart>
       </ResponsiveContainer>
@@ -104,8 +110,30 @@ export function WeeksChart({ weeks }) {
   );
 }
 
+// Uma linha por fonte (casa / academia / profissional): séries separadas, com legenda.
+const SOURCE_COLORS = { casa: 'var(--series-1)', academia: 'var(--series-2)', profissional: 'var(--series-3)' };
+export function SourceLines({ data, sources, unit, labels }) {
+  return (
+    <div className="h-56">
+      <ResponsiveContainer>
+        <LineChart data={data} margin={margin}>
+          <CartesianGrid vertical={false} stroke="var(--grid)" />
+          <XAxis dataKey="day" tickFormatter={shortDay} minTickGap={24} {...axis} />
+          <YAxis domain={['auto', 'auto']} width={52} tickFormatter={yTick} {...axis} />
+          <Tooltip content={<TooltipBox unit={unit} />} cursor={{ stroke: 'var(--axis)', strokeDasharray: 3 }} />
+          {sources.length > 1 && <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 12, color: 'var(--axis)' }} />}
+          {sources.map((s) => (
+            <Line key={s} name={labels[s]} dataKey={s} stroke={SOURCE_COLORS[s]} strokeWidth={2} connectNulls
+              dot={{ r: 3.5, fill: SOURCE_COLORS[s], strokeWidth: 0 }} activeDot={{ r: 5 }} isAnimationActive={false} />
+          ))}
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
 export function Sparkline({ data, dataKey }) {
-  if (!has(data, dataKey)) return <div className="h-10" />;
+  if (data.filter((d) => d[dataKey] != null).length < 2) return <div className="h-10" />;
   return (
     <div className="h-10">
       <ResponsiveContainer>

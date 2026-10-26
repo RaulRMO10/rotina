@@ -35,11 +35,12 @@ const variants = {
   outline: 'border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800',
 };
 
-export function Button({ variant = 'primary', className = '', children, ...props }) {
+// icon: botão quadrado só com ícone (sem padding horizontal).
+export function Button({ variant = 'primary', icon = false, className = '', children, ...props }) {
   return (
     <button
       type="button"
-      className={`inline-flex h-9 items-center justify-center gap-2 rounded-xl px-3.5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 disabled:pointer-events-none disabled:opacity-50 ${variants[variant]} ${className}`}
+      className={`inline-flex h-9 shrink-0 items-center justify-center gap-2 rounded-xl ${icon ? 'w-9' : 'px-3.5'} text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 disabled:pointer-events-none disabled:opacity-50 ${variants[variant]} ${className}`}
       {...props}
     >
       {children}

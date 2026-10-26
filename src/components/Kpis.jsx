@@ -11,7 +11,7 @@ function Kpi({ icon: Icon, label, value, unit, delta, spark }) {
       </div>
       <div className="mt-2 flex items-baseline gap-1">
         <span className="text-2xl font-semibold tracking-tight tabular-nums">{value}</span>
-        {unit && value !== '—' && <span className="text-sm text-zinc-500 dark:text-zinc-400">{unit}</span>}
+        {unit && <span className="text-sm text-zinc-500 dark:text-zinc-400">{unit}</span>}
       </div>
       <div className="mt-0.5 text-xs text-zinc-500 dark:text-zinc-400">{delta}</div>
       <div className="mt-auto pt-2">{spark}</div>
@@ -19,31 +19,21 @@ function Kpi({ icon: Icon, label, value, unit, delta, spark }) {
   );
 }
 
-const vsPrev = (k, digits, unit = '') => {
-  if (k.cur == null) return 'sem dados nos últimos 7 dias';
-  if (k.prev == null) return 'média dos últimos 7 dias';
-  return `${signed(k.cur - k.prev, digits)}${unit} vs semana anterior`;
-};
+const vsPrev = (m, digits, unit = '') => (m.prev == null
+  ? `média de ${m.n} ${m.n === 1 ? 'dia' : 'dias'}`
+  : `${signed(m.cur - m.prev, digits)}${unit} vs período anterior`);
 
+// Só mostra o que tem dado no período.
 export function Kpis({ view }) {
-  const { kpis, series } = view;
-  const recent = series.slice(-30);
-  return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-      <Kpi
-        icon={Dumbbell}
-        label="Treinos na semana"
-        value={String(view.workoutsThisWeek)}
-        delta={`média 4 sem.: ${fmt(view.workoutsAvg4)}`}
-        spark={<div className="flex h-10 items-end gap-1">{view.weeks.slice(-8).map((w) => (
-          <div key={w.week} className={`flex-1 rounded-sm ${w.current ? 'bg-[var(--series-1)]' : 'bg-[var(--series-1-soft)]'}`} style={{ height: `${Math.max(8, Math.min(100, w.count * 20))}%` }} />
-        ))}</div>}
-      />
-      <Kpi icon={Scale} label="Peso · 7d" value={fmt(kpis.weight.cur)} unit="kg" delta={vsPrev(kpis.weight, 1, ' kg')} spark={<Sparkline data={recent} dataKey="weightMa" />} />
-      <Kpi icon={Percent} label="Gordura · 7d" value={fmt(kpis.fat.cur)} unit="%" delta={vsPrev(kpis.fat, 1, ' pp')} spark={<Sparkline data={recent} dataKey="fatMa" />} />
-      <Kpi icon={Footprints} label="Passos · 7d" value={fmt(kpis.steps.cur, 0)} delta={vsPrev(kpis.steps, 0)} spark={<Sparkline data={recent} dataKey="steps" />} />
-      <Kpi icon={Moon} label="Sono · 7d" value={fmtSleep(kpis.sleep.cur)} delta={kpis.sleep.prev == null ? 'média dos últimos 7 dias' : `semana anterior: ${fmtSleep(kpis.sleep.prev)}`} spark={<Sparkline data={recent} dataKey="sleepH" />} />
-      <Kpi icon={HeartPulse} label="FC repouso · 7d" value={fmt(kpis.rhr.cur, 0)} unit="bpm" delta={vsPrev(kpis.rhr, 0, ' bpm')} spark={<Sparkline data={recent} dataKey="rhr" />} />
-    </div>
-  );
+  const { metrics: m, series } = view;
+  const cards = [
+    <Kpi key="w" icon={Dumbbell} label="Treinos" value={String(view.workoutCount)}
+      delta={`${view.workoutMinutes} min · antes: ${view.prevWorkoutCount}`} />,
+  ];
+  if (m.weight.n) cards.push(<Kpi key="p" icon={Scale} label="Peso médio" value={fmt(m.weight.cur)} unit="kg" delta={vsPrev(m.weight, 1, ' kg')} spark={<Sparkline data={series} dataKey="weight" />} />);
+  if (m.fat.n) cards.push(<Kpi key="f" icon={Percent} label="Gordura média" value={fmt(m.fat.cur)} unit="%" delta={vsPrev(m.fat, 1, ' pp')} spark={<Sparkline data={series} dataKey="fat" />} />);
+  if (m.steps.n) cards.push(<Kpi key="s" icon={Footprints} label="Passos/dia" value={fmt(m.steps.cur, 0)} delta={vsPrev(m.steps, 0)} spark={<Sparkline data={series} dataKey="steps" />} />);
+  if (m.sleep.n) cards.push(<Kpi key="z" icon={Moon} label="Sono/noite" value={fmtSleep(m.sleep.cur)} delta={m.sleep.prev == null ? `média de ${m.sleep.n} noites` : `antes: ${fmtSleep(m.sleep.prev)}`} spark={<Sparkline data={series} dataKey="sleepH" />} />);
+  if (m.rhr.n) cards.push(<Kpi key="r" icon={HeartPulse} label="FC repouso" value={fmt(m.rhr.cur, 0)} unit="bpm" delta={vsPrev(m.rhr, 0, ' bpm')} spark={<Sparkline data={series} dataKey="rhr" />} />);
+  return <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">{cards}</div>;
 }

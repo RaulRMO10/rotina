@@ -4,7 +4,7 @@ import { supabase } from '../lib/supabase';
 import { longDate } from '../lib/dates';
 import { Button } from './ui';
 
-export function ReportCard({ report, onGenerated }) {
+export function ReportCard({ report, periodKind, onGenerated }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(null);
 
@@ -49,7 +49,9 @@ export function ReportCard({ report, onGenerated }) {
       <div className="mt-4 whitespace-pre-wrap text-[15px] leading-relaxed text-zinc-700 dark:text-zinc-300">
         {report
           ? report.summary
-          : 'Ainda não há resumo. Toque em "Gerar agora" para um retrato da semana até aqui, ou espere o automático de segunda.'}
+          : periodKind === 'week'
+            ? 'Sem resumo para esta semana. "Gerar agora" faz um retrato da semana atual até aqui; o automático sai toda segunda.'
+            : 'Sem resumo neste período. "Gerar agora" faz um retrato da semana atual até aqui.'}
       </div>
       {error && <p className="mt-3 text-sm text-red-600 dark:text-red-400">Não deu para gerar: {error}</p>}
     </section>

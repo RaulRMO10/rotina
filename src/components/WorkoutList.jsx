@@ -3,11 +3,11 @@ import { Empty } from './ui';
 
 const icons = { bike: Bike, 'musculação': Dumbbell, caminhada: Footprints, esteira: Footprints, corrida: Footprints };
 
-export function WorkoutList({ workouts }) {
+export function WorkoutList({ workouts, limit = 7 }) {
   if (!workouts.length) return <Empty>Nenhum treino ainda. Os treinos registrados no relógio aparecem aqui.</Empty>;
   return (
     <ul className="-my-1 divide-y divide-zinc-100 dark:divide-zinc-800">
-      {workouts.slice(0, 7).map((w) => {
+      {workouts.slice(0, limit).map((w) => {
         const Icon = icons[w.type] || Activity;
         const d = new Date(w.started_at);
         return (

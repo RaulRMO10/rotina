@@ -4,11 +4,23 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "functions": {
-    "api/ingest.js": { "maxDuration": 30 },
-    "api/reprocess.js": { "maxDuration": 60 },
-    "api/weekly-report.js": { "maxDuration": 120 }
+    "api/ingest.js": {
+      "maxDuration": 30
+    },
+    "api/reprocess.js": {
+      "maxDuration": 60
+    },
+    "api/weekly-report.js": {
+      "maxDuration": 120
+    },
+    "api/photo-analysis.js": {
+      "maxDuration": 120
+    }
   },
   "crons": [
-    { "path": "/api/weekly-report", "schedule": "17 11 * * 1" }
+    {
+      "path": "/api/weekly-report",
+      "schedule": "17 11 * * 1"
+    }
   ]
 }
