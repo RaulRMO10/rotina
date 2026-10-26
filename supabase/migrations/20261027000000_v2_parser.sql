@@ -145,7 +145,11 @@ begin
   select distinct on (type, hc_id) p_user, type, hc_id, origin, start_at, end_at, value, data, now() from _in
   on conflict (user_id, type, hc_id) do update set
     origin = excluded.origin, start_at = excluded.start_at, end_at = excluded.end_at,
-    value = excluded.value, data = excluded.data, updated_at = now();
+    value = excluded.value, data = excluded.data, updated_at = now()
+  -- Total diário (agregado): só substitui se cobrir pelo menos o mesmo trecho do dia.
+  -- Assim o "hoje" cresce a cada envio e uma busca menor não apaga um dia completo.
+  where not coalesce((excluded.data->>'aggregate')::boolean, false)
+     or excluded.end_at >= hc_records.end_at;
   get diagnostics v_count = row_count;
 
   if v_days is not null then
